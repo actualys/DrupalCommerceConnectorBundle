@@ -1,0 +1,205 @@
+parameters:
+    actualys_drupal_commerce_connector.normalizer.product.class:                                    Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\ProductNormalizer
+    actualys_drupal_commerce_connector.normalizer.family.class:                                     Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\FamilyNormalizer
+    actualys_drupal_commerce_connector.normalizer.attribute.class:                                  Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\AttributeNormalizer
+    actualys_drupal_commerce_connector.normalizer.attribute_option.class:                           Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\AttributeOptionNormalizer
+    actualys_drupal_commerce_connector.normalizer.category.class:                                   Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\CategoryNormalizer
+    actualys_drupal_commerce_connector.normalizer.group.class:                                      Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\GroupNormalizer
+    actualys_drupal_commerce_connector.normalizer.product_value.class:                              Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\ProductValueNormalizer
+    actualys_drupal_commerce_connector.normalizer.association.class:                                Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\AssociationNormalizer
+
+    # Product value Normalizers
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_identifier.class:       Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\ProductValue\PimCatalogIdentifierNormalizer
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_boolean.class:          Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\ProductValue\PimCatalogBooleanNormalizer
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_text.class:             Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\ProductValue\PimCatalogTextNormalizer
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_textarea.class:         Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\ProductValue\PimCatalogTextareaNormalizer
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_number.class:           Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\ProductValue\PimCatalogNumberNormalizer
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_image.class:            Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\ProductValue\PimCatalogImageNormalizer
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_file.class:             Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\ProductValue\PimCatalogFileNormalizer
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_metric.class:           Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\ProductValue\PimCatalogMetricNormalizer
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_price_collection.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\ProductValue\PimCatalogPriceCollectionNormalizer
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_multiselect.class:      Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\ProductValue\PimCatalogMultiSelectNormalizer
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_simpleselect.class:     Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\ProductValue\PimCatalogSimpleSelectNormalizer
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_date.class:     Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\ProductValue\PimCatalogDateNormalizer
+
+    # Attribute Normalizers
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_identifier.class:       Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\Attribute\PimCatalogIdentifierNormalizer
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_boolean.class:          Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\Attribute\PimCatalogBooleanNormalizer
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_text.class:             Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\Attribute\PimCatalogTextNormalizer
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_textarea.class:         Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\Attribute\PimCatalogTextareaNormalizer
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_number.class:           Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\Attribute\PimCatalogNumberNormalizer
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_image.class:            Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\Attribute\PimCatalogImageNormalizer
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_file.class:             Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\Attribute\PimCatalogFileNormalizer
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_metric.class:           Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\Attribute\PimCatalogMetricNormalizer
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_price_collection.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\Attribute\PimCatalogPriceCollectionNormalizer
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_multiselect.class:      Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\Attribute\PimCatalogMultiSelectNormalizer
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_simpleselect.class:     Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\Attribute\PimCatalogSimpleSelectNormalizer
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_date.class:             Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\Attribute\PimCatalogDateNormalizer
+
+
+services:
+    actualys_drupal_commerce_connector.normalizer.product:
+        class: %actualys_drupal_commerce_connector.normalizer.product.class%
+        arguments:
+            - '@pim_catalog.manager.channel'
+            - '@actualys_drupal_commerce_connector.guesser.normalizer'
+            - '@actualys_drupal_commerce_connector.repository.category'
+
+    actualys_drupal_commerce_connector.normalizer.attribute:
+        class: %actualys_drupal_commerce_connector.normalizer.attribute.class%
+        arguments:
+            - '@actualys_drupal_commerce_connector.guesser.normalizer'
+
+    actualys_drupal_commerce_connector.normalizer.family:
+        class: %actualys_drupal_commerce_connector.normalizer.family.class%
+        arguments :
+            - '@actualys_drupal_commerce_connector.normalizer.attribute'
+
+    actualys_drupal_commerce_connector.normalizer.attribute_option:
+        class: %actualys_drupal_commerce_connector.normalizer.attribute_option.class%
+
+    actualys_drupal_commerce_connector.normalizer.category:
+        class: %actualys_drupal_commerce_connector.normalizer.category.class%
+        arguments :
+            - '@actualys_drupal_commerce_connector.repository.category'
+
+    actualys_drupal_commerce_connector.normalizer.group:
+        class: %actualys_drupal_commerce_connector.normalizer.group.class%
+
+    actualys_drupal_commerce_connector.normalizer.association:
+        class: %actualys_drupal_commerce_connector.normalizer.association.class%
+        arguments :
+            -  '@pim_catalog.manager.product'
+
+
+    # Product Values Normalizers
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_identifier:
+        class: %actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_identifier.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.product_value, alias: pim_catalog_identifier.product_value}
+
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_boolean:
+        class: %actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_boolean.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.product_value, alias: pim_catalog_boolean.product_value}
+
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_text:
+        class: %actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_text.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.product_value, alias: pim_catalog_text.product_value}
+
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_textarea:
+        class: %actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_textarea.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.product_value, alias: pim_catalog_textarea.product_value}
+
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_number:
+        class: %actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_number.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.product_value, alias: pim_catalog_number.product_value}
+
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_metric:
+        class: %actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_metric.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.product_value, alias: pim_catalog_metric.product_value}
+
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_price_collection:
+        class: %actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_price_collection.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.product_value, alias: pim_catalog_price_collection.product_value}
+
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_multiselect:
+        class: %actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_multiselect.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.product_value, alias: pim_catalog_multiselect.product_value}
+
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_simpleselect:
+        class: %actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_simpleselect.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.product_value, alias: pim_catalog_simpleselect.product_value}
+
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_file:
+        class: %actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_file.class%
+        arguments:
+            - %kernel.root_dir%
+            - @pim_catalog.manager.media
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.product_value, alias: pim_catalog_file.product_value}
+
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_image:
+          class: %actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_image.class%
+          arguments:
+              - %kernel.root_dir%
+              - @pim_catalog.manager.media
+              - %webservice_servername%
+          tags:
+              - {name: actualys_drupal_commerce_connector.normalizer.product_value, alias: pim_catalog_image.product_value}
+
+    actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_date:
+          class: %actualys_drupal_commerce_connector.normalizer.product_value.pim_catalog_date.class%
+          tags:
+              - {name: actualys_drupal_commerce_connector.normalizer.product_value, alias: pim_catalog_date.product_value}
+
+    # Attributes Normalizers
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_identifier:
+        class: %actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_identifier.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.attribute, alias: pim_catalog_identifier.attribute}
+
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_boolean:
+        class: %actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_boolean.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.attribute, alias: pim_catalog_boolean.attribute}
+
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_text:
+        class: %actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_text.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.attribute, alias: pim_catalog_text.attribute}
+
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_textarea:
+        class: %actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_textarea.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.attribute, alias: pim_catalog_textarea.attribute}
+
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_number:
+        class: %actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_number.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.attribute, alias: pim_catalog_number.attribute}
+
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_metric:
+        class: %actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_metric.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.attribute, alias: pim_catalog_metric.attribute}
+
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_price_collection:
+        class: %actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_price_collection.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.attribute, alias: pim_catalog_price_collection.attribute}
+
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_multiselect:
+        class: %actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_multiselect.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.attribute, alias: pim_catalog_multiselect.attribute}
+
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_simpleselect:
+        class: %actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_simpleselect.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.attribute, alias: pim_catalog_simpleselect.attribute}
+
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_file:
+        class: %actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_file.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.attribute, alias: pim_catalog_file.attribute}
+
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_date:
+        class: %actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_date.class%
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.attribute, alias: pim_catalog_date.attribute}
+
+    actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_image:
+        class: %actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_image.class%
+        arguments:
+            - %webservice_servername%
+
+        tags:
+            - {name: actualys_drupal_commerce_connector.normalizer.attribute, alias: pim_catalog_image.attribute}

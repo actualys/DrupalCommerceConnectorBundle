@@ -1,0 +1,59 @@
+parameters:
+    actualys_drupal_commerce_product_connector.reader.orm.bulk_entity.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Reader\ORM\BulkEntityReader
+    actualys_drupal_commerce_connector.reader.category.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Reader\ORM\CategoryReader
+    actualys_drupal_commerce_connector.reader.attribute_option.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Reader\ORM\AttributeOptionReader
+
+services:
+    # readers
+
+    actualys_drupal_commerce_connector.reader.product:
+       # class: %actualys_drupal_commerce_product_connector.reader.orm.bulk_entity.class%
+        class: %pim_base_connector.reader.doctrine.product.class%
+        arguments:
+            - '@pim_catalog.repository.product'
+            - '@pim_catalog.manager.channel'
+            - '@pim_catalog.manager.completeness'
+            - '@pim_transform.converter.metric'
+            - '@pim_catalog.object_manager.product'
+
+    actualys_drupal_commerce_connector.reader.family:
+        class: %pim_base_connector.reader.orm.entity.class%
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - %pim_catalog.entity.family.class%
+
+    actualys_drupal_commerce_connector.reader.attribute:
+        class: %pim_base_connector.reader.orm.entity.class%
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - %pim_catalog.entity.attribute.class%
+
+    actualys_drupal_commerce_connector.reader.attribute_option:
+        class: %actualys_drupal_commerce_connector.reader.attribute_option.class%
+        arguments:
+             - '@doctrine.orm.default_entity_manager'
+             - %pim_catalog.entity.attribute.class%
+             - '@actualys_drupal_commerce_connector.repository.attribute'
+
+
+    actualys_drupal_commerce_connector.reader.category:
+        class: %actualys_drupal_commerce_connector.reader.category.class%
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - %pim_catalog.entity.category.class%
+            - '@actualys_drupal_commerce_connector.repository.category'
+
+    actualys_drupal_commerce_connector.reader.group:
+         class: %pim_base_connector.reader.orm.entity.class%
+         arguments:
+             - '@doctrine.orm.default_entity_manager'
+             - %pim_catalog.entity.group.class%
+
+    actualys_drupal_commerce_connector.reader.association:
+        class: %pim_base_connector.reader.doctrine.product.class%
+        arguments:
+            - '@pim_catalog.repository.product'
+            - '@pim_catalog.manager.channel'
+            - '@pim_catalog.manager.completeness'
+            - '@pim_transform.converter.metric'
+            - '@pim_catalog.object_manager.product'

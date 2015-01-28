@@ -1,0 +1,134 @@
+connector:
+    name: Drupal Commerce Connector
+    jobs:
+
+        # Export unitaires
+        drupal_commerce_product_export:
+            title: actualys_drupal_commerce_connector.jobs.product_export.title
+            type:  export
+            steps:
+                export_products:
+                     title:     actualys_drupal_commerce_connector.steps.product_export.export.title
+                     services:
+                         reader:    actualys_drupal_commerce_connector.reader.product
+                         processor: actualys_drupal_commerce_connector.processor.product
+                         writer:    actualys_drupal_commerce_connector.writer.product
+                     parameters:
+                         batch_size: 50
+        drupal_commerce_family_export:
+            title: actualys_drupal_commerce_connector.jobs.family_export.title
+            type:  export
+            steps:
+                export:
+                    title:     actualys_drupal_commerce_connector.steps.family_export.export.title
+                    services:
+                        reader:    actualys_drupal_commerce_connector.reader.family
+                        processor: actualys_drupal_commerce_connector.processor.family
+                        writer:    actualys_drupal_commerce_connector.writer.family
+                    parameters:
+                        batch_size: 50
+        drupal_commerce_attribute_option_export:
+            title: actualys_drupal_commerce_connector.jobs.attribute_option_export.title
+            type:  export
+            steps:
+                export:
+                    title:     actualys_drupal_commerce_connector.steps.attribute_option_export.export.title
+                    services:
+                        reader:    actualys_drupal_commerce_connector.reader.attribute_option
+                        processor: actualys_drupal_commerce_connector.processor.attribute_option
+                        writer:    actualys_drupal_commerce_connector.writer.attribute_option
+                    parameters:
+                        batch_size: 50
+        drupal_commerce_category_export:
+            title: actualys_drupal_commerce_connector.jobs.category_export.title
+            type:  export
+            steps:
+                export:
+                    title:     actualys_drupal_commerce_connector.steps.category_export.export.title
+                    services:
+                        reader:    actualys_drupal_commerce_connector.reader.category
+                        processor: actualys_drupal_commerce_connector.processor.category
+                        writer:    actualys_drupal_commerce_connector.writer.category
+                    parameters:
+                        batch_size: 1
+        drupal_commerce_group_export:
+            title: actualys_drupal_commerce_connector.jobs.group_export.title
+            type:  export
+            steps:
+                export:
+                    title:     actualys_drupal_commerce_connector.steps.group_export.export.title
+                    services:
+                        reader:    actualys_drupal_commerce_connector.reader.group
+                        processor: actualys_drupal_commerce_connector.processor.group
+                        writer:    actualys_drupal_commerce_connector.writer.group
+                    parameters:
+                        batch_size: 50
+        drupal_commerce_association_export:
+            title: actualys_drupal_commerce_connector.jobs.association_export.title
+            type:  export
+            steps:
+                export:
+                    title:     actualys_drupal_commerce_connector.steps.association_export.export.title
+                    services:
+                        reader:    actualys_drupal_commerce_connector.reader.association
+                        processor: actualys_drupal_commerce_connector.processor.association
+                        writer:    actualys_drupal_commerce_connector.writer.association
+                    parameters:
+                        batch_size: 50
+        # Exports complets
+        drupal_commerce_product_full_export:
+            title: actualys_drupal_commerce_connector.jobs.product_full_export.title
+            type:  export
+            steps:
+                export_products:
+                     title:     actualys_drupal_commerce_connector.steps.product_export.export.title
+                     services:
+                         reader:    actualys_drupal_commerce_connector.reader.product
+                         processor: actualys_drupal_commerce_connector.processor.product
+                         writer:    actualys_drupal_commerce_connector.writer.product
+                     parameters:
+                         batch_size: 50
+                export_groups:
+                     title:     actualys_drupal_commerce_connector.steps.group_export.export.title
+                     services:
+                         reader:    actualys_drupal_commerce_connector.reader.group
+                         processor: actualys_drupal_commerce_connector.processor.group
+                         writer:    actualys_drupal_commerce_connector.writer.group
+                     parameters:
+                         batch_size: 50
+                export_associations:
+                    title:     actualys_drupal_commerce_connector.steps.association_export.export.title
+                    services:
+                        reader:    actualys_drupal_commerce_connector.reader.association
+                        processor: actualys_drupal_commerce_connector.processor.association
+                        writer:    actualys_drupal_commerce_connector.writer.association
+                    parameters:
+                        batch_size: 50
+        drupal_commerce_product_delta_export:
+            title: actualys_drupal_commerce_connector.jobs.product_delta_export.title
+            type:  export
+            steps:
+                export:
+                    title:     actualys_drupal_commerce_connector.steps.product_delta_export.export.title
+                    services:
+                        reader:    pim_delta_export.reader.doctrine.product
+                        processor: actualys_drupal_commerce_connector.processor.product
+                        writer:    actualys_drupal_commerce_connector.writer.product_delta
+                    parameters:
+                        batch_size: 50
+                export_groups:
+                     title:     actualys_drupal_commerce_connector.steps.group_export.export.title
+                     services:
+                         reader:    actualys_drupal_commerce_connector.reader.group
+                         processor: actualys_drupal_commerce_connector.processor.group
+                         writer:    actualys_drupal_commerce_connector.writer.group
+                     parameters:
+                         batch_size: 50
+                export_associations:
+                    title:     actualys_drupal_commerce_connector.steps.association_export.export.title
+                    services:
+                        reader:    actualys_drupal_commerce_connector.reader.association
+                        processor: actualys_drupal_commerce_connector.processor.association
+                        writer:    actualys_drupal_commerce_connector.writer.association
+                    parameters:
+                        batch_size: 50

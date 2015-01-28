@@ -1,0 +1,31 @@
+{
+    "name": "actualys/drupal-commerce-connector-bundle",
+    "type": "symfony-bundle",
+    "description": "Akeneo PIM bundle to export to Drupal commerce platform",
+    "keywords": ["pim", "akeneo", "ecommerce", "e-commerce", "drupal", "connector", "rest", "drupal commerce"],
+    "homepage": "http://www.actualys.com",
+    "licence" : "GPLv2",
+    "authors": [
+        {
+            "name":     "Cédric Mefferte",
+            "email":    "cedric.mefferte@gmail.com",
+            "homepage": "http://www.actualys.com/"
+        },
+        {
+            "name":     "Sébastien Malot",
+            "email":    "sebastien.malot@gmail.com",
+            "homepage": "http://www.actualys.com/"
+        },
+
+    ],
+    "require": {
+        "guzzle/service": ">=3.6.0",
+        "akeneo/pim-community-dev": "1.2.*@stable",
+        "akeneo/delta-export-bundle": "v1.0.0-BETA2",
+    },
+    "autoload": {
+        "psr-0": { "Actualys\\Bundle\\DrupalCommerceConnectorBundle\\": "" }
+    },
+    "minimum-stability": "dev",
+    "target-dir": "Actualys/Bundle/DrupalCommerceConnectorBundle"
+}

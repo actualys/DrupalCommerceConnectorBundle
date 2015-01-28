@@ -1,0 +1,44 @@
+actualys_drupal_commerce_connector:
+    jobs:
+        product_export.title: "Export des produits vers Drupal Commerce"
+        product_delta_export.title: "Export delta des produits vers Drupal Commerce"
+        association_export.title: "Export des product_associations vers Drupal Commerce"
+        product_full_export.title: "Export complet vers Drupal Commerce"
+        category_export.title: "Export catégories vers Drupal Commerce"
+        option_export.title: "Export d'options vers Drupal Commerce"
+        attribute_export.title: "Export d'attributs vers Drupal Commerce"
+        option_export.title: "Export des options d'attributs vers Drupal Commerce"
+        group_export.title: "Export de groupes vers Drupal Commerce"
+        family_export.title: "Export de familles vers Drupal Commerce"
+        option_attribute.title: "Export des options d'attribut vers Drupal Commerce"
+    steps:
+        product_full_export.export.title: Export complets de produits
+        product_delta_export.export.title: Export delta de produits
+        product_export.export.title: Export simple de produits
+        group_export.export.title: Export de groupes
+        attribute_export.export.title: Export d'attributs
+        option_export.export.title: Export des options d'attributs
+        family_export.export.title: Export des familles de produits
+        category_export.export.title: Export des categories de produits
+    export:
+        baseUrl:
+            label: "Url Drupal"
+            help:  "L'url de votre installation Drupal"
+        endpoint:
+            label: "Url du Enpoint"
+            help:  "L'url du Endpoint Drupal (configuré via Services)"
+        resourcePath:
+            label: "Chemin de la ressource"
+            help:  "(configuré via Services)"
+        httpLogin:
+            label: "Nom d'utilisateur"
+            help: "Si vous avez une authentification par http fournissez ici votre nom d'utilisateur de votre connection http"
+        httpPassword:
+            label: Mot de passe
+            help: "Si vous avez une authentification par http fournissez ici le mot de passe de votre connection http"
+        mergeImages:
+            label: Grouper les images
+            help: "Permet de créer un tableau d'images si les champs respectent le format 'xxxxx_9' => 'xxxxx'."
+        channel:
+            label: Exporter pour un channel donné
+            help: "Permet d' exporter les produits par channel"

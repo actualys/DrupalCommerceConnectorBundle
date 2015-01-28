@@ -1,0 +1,68 @@
+parameters:
+    actualys_drupal_commerce_connector.writer.product.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Writer\ProductWriter
+    actualys_drupal_commerce_connector.writer.family.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Writer\FamilyWriter
+    actualys_drupal_commerce_connector.writer.attribute.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Writer\AttributeWriter
+    actualys_drupal_commerce_connector.writer.attribute_option.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Writer\AttributeOptionWriter
+    actualys_drupal_commerce_connector.writer.category.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Writer\CategoryWriter
+    actualys_drupal_commerce_connector.writer.group.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Writer\GroupWriter
+    actualys_drupal_commerce_connector.writer.product_delta.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Writer\DeltaProductWriter
+    actualys_drupal_commerce_connector.writer.association.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Writer\AssociationWriter
+
+services:
+    actualys_drupal_commerce_connector.writer.product:
+        class: %actualys_drupal_commerce_connector.writer.product.class%
+        arguments:
+            - @event_dispatcher
+        calls:
+            - [setWebservice, ["@actualys_drupal_commerce_connector.webservice"]]
+
+    actualys_drupal_commerce_connector.writer.product_delta:
+        class: %actualys_drupal_commerce_connector.writer.product_delta.class%
+        arguments:
+            - @event_dispatcher
+            - @pim_catalog.manager.channel
+            - @pim_delta_export.manager.product_export
+        calls:
+            - [setWebservice, ["@actualys_drupal_commerce_connector.webservice"]]
+
+    actualys_drupal_commerce_connector.writer.association:
+        class: %actualys_drupal_commerce_connector.writer.association.class%
+        arguments:
+            - @event_dispatcher
+        calls:
+            - [setWebservice, ["@actualys_drupal_commerce_connector.webservice"]]
+
+    actualys_drupal_commerce_connector.writer.family:
+        class: %actualys_drupal_commerce_connector.writer.family.class%
+        arguments:
+            - @event_dispatcher
+        calls:
+            - [setWebservice, ["@actualys_drupal_commerce_connector.webservice"]]
+
+    actualys_drupal_commerce_connector.writer.attribute:
+        class: %actualys_drupal_commerce_connector.writer.attribute.class%
+        arguments:
+            - @event_dispatcher
+        calls:
+            - [setWebservice, ["@actualys_drupal_commerce_connector.webservice"]]
+
+    actualys_drupal_commerce_connector.writer.attribute_option:
+        class: %actualys_drupal_commerce_connector.writer.attribute_option.class%
+        arguments:
+            - @event_dispatcher
+        calls:
+            - [setWebservice, ["@actualys_drupal_commerce_connector.webservice"]]
+
+    actualys_drupal_commerce_connector.writer.category:
+        class: %actualys_drupal_commerce_connector.writer.category.class%
+        arguments:
+            - @event_dispatcher
+        calls:
+            - [setWebservice, ["@actualys_drupal_commerce_connector.webservice"]]
+
+    actualys_drupal_commerce_connector.writer.group:
+        class: %actualys_drupal_commerce_connector.writer.group.class%
+        arguments:
+            - @event_dispatcher
+        calls:
+            - [setWebservice, ["@actualys_drupal_commerce_connector.webservice"]]

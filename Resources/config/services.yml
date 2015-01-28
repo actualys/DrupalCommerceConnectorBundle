@@ -1,0 +1,48 @@
+parameters:
+    actualys_drupal_commerce_connector.repository.category.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Entity\Repository\CategoryRepository
+    actualys_drupal_commerce_connector.repository.attribute.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Entity\Repository\AttributeRepository
+    actualys_drupal_commerce_connector.guesser.normalizer.class:   Actualys\Bundle\DrupalCommerceConnectorBundle\Guesser\NormalizerGuesser
+    actualys_drupal_commerce_connector.serializer.class: Symfony\Component\Serializer\Serializer
+    actualys_drupal_commerce_connector.webservice.transport.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Webservice\Transport\DrupalRestClient
+    actualys_drupal_commerce_connector.webservice.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Webservice\Webservice
+  #  pim_installer.fixture_loader.job_loader.config_file: 'PimExcelConnectorBundle/Resources/config/fixtures_jobs.yml'
+services:
+    actualys_drupal_commerce_connector.serializer:
+        class: %actualys_drupal_commerce_connector.serializer.class%
+
+    actualys_drupal_commerce_connector.repository.category:
+        class: %actualys_drupal_commerce_connector.repository.category.class%
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@actualys_drupal_commerce_connector.metadata.category'
+
+    actualys_drupal_commerce_connector.repository.attribute:
+        class: %actualys_drupal_commerce_connector.repository.attribute.class%
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@actualys_drupal_commerce_connector.metadata.attribute'
+
+    actualys_drupal_commerce_connector.metadata.category:
+        public: false
+        class: Doctrine\ORM\Mapping\ClassMetaData
+        arguments:
+            name: %pim_catalog.entity.category.class%
+
+    actualys_drupal_commerce_connector.metadata.attribute:
+        public: false
+        class: Doctrine\ORM\Mapping\ClassMetaData
+        arguments:
+            name: %pim_catalog.entity.attribute.class%
+
+    actualys_drupal_commerce_connector.guesser.normalizer:
+        class: %actualys_drupal_commerce_connector.guesser.normalizer.class%
+        arguments:
+            - @actualys_drupal_commerce_connector.normalizers
+
+    actualys_drupal_commerce_connector.webservice.transport:
+        class: %actualys_drupal_commerce_connector.webservice.transport.class%
+
+    actualys_drupal_commerce_connector.webservice:
+        class: %actualys_drupal_commerce_connector.webservice.class%
+        arguments:
+            - @actualys_drupal_commerce_connector.webservice.transport

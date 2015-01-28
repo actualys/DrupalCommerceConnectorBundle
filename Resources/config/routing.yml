@@ -1,0 +1,4 @@
+api_media:
+    resource: '@ActualysDrupalCommerceConnectorBundle/Controller/Rest/MediaController.php'
+    type:   rest
+    prefix: api/rest/media
