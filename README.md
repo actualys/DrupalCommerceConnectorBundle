@@ -3,6 +3,7 @@ DrupalCommerceConnectorBundle
 
 Drupal Commerce Connector for Akeneo PIM OpenSource Project.
 
+[![Latest Stable Version](https://poser.pugx.org/actualys/drupal-commerce-connector-bundle/v/stable.svg)](https://packagist.org/packages/actualys/drupal-commerce-connector-bundle) [![Total Downloads](https://poser.pugx.org/actualys/drupal-commerce-connector-bundle/downloads.svg)](https://packagist.org/packages/actualys/drupal-commerce-connector-bundle) [![Latest Unstable Version](https://poser.pugx.org/actualys/drupal-commerce-connector-bundle/v/unstable.svg)](https://packagist.org/packages/actualys/drupal-commerce-connector-bundle) [![License](https://poser.pugx.org/actualys/drupal-commerce-connector-bundle/license.svg)](https://packagist.org/packages/actualys/drupal-commerce-connector-bundle)
 
 # Configure Rest Webservice for medias
 
