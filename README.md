@@ -32,6 +32,6 @@ webservice_servername: # ex:  http://localhost/api/rest/media
 - implement security layer for the webservice media access
 
 # Bug and issues
-rm -r
+
 This bundle is still under active development. Expect bugs and instabilities. Feel free to report them on this repository's [issue section](https://github.com/akeneo/MagentoConnectorBundle/issues).
 
