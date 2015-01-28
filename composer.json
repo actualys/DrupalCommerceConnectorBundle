@@ -31,6 +31,16 @@
         "akeneo/pim-community-dev": "1.2.*@stable",
         "akeneo/delta-export-bundle": "v1.0.0-BETA2"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/akeneo/pim-community-dev.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/akeneo/platform.git"
+        }
+    ],
     "autoload": {
         "psr-0": {
             "Actualys\\Bundle\\DrupalCommerceConnectorBundle\\": ""
