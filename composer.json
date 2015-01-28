@@ -13,7 +13,7 @@
         "drupal commerce"
     ],
     "homepage": "http://www.actualys.com",
-    "licence": "GPL-2.0",
+    "license": "GPL-2.0",
     "authors": [
         {
             "name": "Cédric Mefferte",
