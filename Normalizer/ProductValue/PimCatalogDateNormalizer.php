@@ -12,10 +12,10 @@ use Pim\Bundle\CatalogBundle\Entity\Attribute;
 class PimCatalogDateNormalizer implements ProductValueNormalizerInterface
 {
     /**
-     * @param  object                                                $attribute
-     * @param  null                                                  $format
-     * @param  array                                                 $context
-     * @return array|\Symfony\Component\Serializer\Normalizer\scalar
+     * @param array $drupalProduct
+     * @param \Pim\Bundle\CatalogBundle\Model\ProductValue $productValue
+     * @param string $field
+     * @param array $context
      */
     public function normalize(
       array &$drupalProduct,
@@ -23,7 +23,7 @@ class PimCatalogDateNormalizer implements ProductValueNormalizerInterface
       $field,
       array $context = array()
     ) {
-        echo "test";
+        $decimal = '';
         $drupalProduct['values'][$field][] = array(
           'type' => 'pim_catalog_date',
           'value' => (double) $decimal,

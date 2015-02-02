@@ -44,7 +44,7 @@ class AssociationProcessor extends DrupalItemStep implements ItemProcessorInterf
     ) {
         $this->associationNormalizer = $associationNormalizer;
         $this->productManager        = $productManager;
-        $this->assocManager          = $associationManager;
+        $this->associationManager          = $associationManager;
     }
 
     /**

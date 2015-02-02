@@ -2,7 +2,7 @@
 
 namespace Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\Attribute;
 
-
+use Pim\Bundle\CatalogBundle\Entity\Attribute;
 
 /**
  * Class PimCatalogFile

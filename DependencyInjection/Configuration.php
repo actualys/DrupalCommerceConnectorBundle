@@ -15,7 +15,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode    = $treeBuilder->root('actualys_drupal_commerce_connector');
+        $treeBuilder->root('actualys_drupal_commerce_connector');
 
         return $treeBuilder;
     }
