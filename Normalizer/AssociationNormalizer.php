@@ -35,8 +35,6 @@ class AssociationNormalizer implements NormalizerInterface
         foreach ($product->getAssociations() as $association) {
             $associationCode = $association->getAssociationType()->getCode();
 
-            $nb_groups   = $association->getGroups()->count();
-            $nb_products = $association->getProducts()->count();
             if ($association->getGroups()->count(
               ) > 0 || $association->getProducts()->count() > 0
             ) {
