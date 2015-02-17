@@ -57,7 +57,7 @@ class AttributeOptionProcessor extends DrupalItemStep implements ItemProcessorIn
     }
 
     /**
-     * @param  AttributeOption      $attributeOption
+     * @param  AttributeOption      $attributeOptionNormalizer
      * @param  array                $context
      * @return mixed
      * @throws InvalidItemException
