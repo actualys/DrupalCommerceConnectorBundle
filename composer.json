@@ -28,7 +28,7 @@
     ],
     "require": {
         "guzzle/service": ">=3.6.0",
-        "akeneo/pim-community-dev": "1.2.*@stable",
+        "akeneo/pim-community-dev": ">=1.2.*@stable",
         "akeneo/delta-export-bundle": "v1.0.0-BETA2"
     },
     "repositories": [
