@@ -141,15 +141,17 @@ class ProductNormalizer implements NormalizerInterface
       Channel $channel,
       $configuration
     ) {
+
         /** @var \Pim\Bundle\CatalogBundle\Model\ProductValue $value */
         foreach ($product->getValues() as $value) {
 
+            /*
             // Skip out of scope values or not global ones.
             if ($value->getScope() != $channel->getCode() && $value->getScope(
               ) !== null
             ) {
                 continue;
-            }
+            }*/
 
             $field  = $value->getAttribute()->getCode();
             $type   = $value->getAttribute()->getAttributeType();
@@ -162,12 +164,15 @@ class ProductNormalizer implements NormalizerInterface
               ->getAttributeAsLabel()
               ->getCode();
             if ($type == 'pim_catalog_identifier' || $field == $labelAttribute) {
+
                 continue;
             }
+
             // Setup default locale.
             $context = [
               'locale'        => $locale,
               'scope'         => $value->getScope(),
+              'defaultLocale' => 'fr_FR',
               'defaultLocale' => 'fr_FR',
               'configuration' => $configuration,
             ];
