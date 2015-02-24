@@ -47,10 +47,9 @@ class DeltaProductWriter extends ProductWriter
     public function write(array $items)
     {
         parent::write($items);
-
         foreach ($items as $item) {
             $this->productExportManager->updateProductExport(
-              $item['products']['sku'],
+              $item['sku'],
               $this->jobInstance
             );
         }

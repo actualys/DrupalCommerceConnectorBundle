@@ -24,12 +24,16 @@ class PimCatalogMetricNormalizer implements ProductValueNormalizerInterface
       array $context = array()
     ) {
         $metric = $productValue->getMetric();
-        if ($metric->getData() && $metric->getBaseUnit()) {
-            $drupalProduct['values'][$field][$context['locale']][] = array(
-              'type' => 'pim_catalog_metric',
-              'value' => (double) $metric->getData(),
-              'unit' => $metric->getUnit(),
-            );
+        // Process only if the value is not null
+        if (is_object($metric)) {
+            if ($metric->getData() && $metric->getBaseUnit()) {
+                $drupalProduct['values'][$field][$context['locale']][] = array(
+                  'type' => 'pim_catalog_metric',
+                  'value' => (double) $metric->getData(),
+                  'unit' => $metric->getUnit(),
+                );
+            }
         }
+
     }
 }
