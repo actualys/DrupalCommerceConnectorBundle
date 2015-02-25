@@ -35,6 +35,7 @@ class ActualysDrupalCommerceConnectorExtension extends Extension
         $loader->load('readers.yml');
         $loader->load('processors.yml');
         $loader->load('writers.yml');
+     //   $loader->load('validation.yml');
 
         if (!$container->hasDefinition(
           'actualys_drupal_commerce_connector.normalizers'
