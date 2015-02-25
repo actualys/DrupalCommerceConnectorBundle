@@ -163,8 +163,8 @@ class ProductNormalizer implements NormalizerInterface
               ->getFamily()
               ->getAttributeAsLabel()
               ->getCode();
-            if ($type == 'pim_catalog_identifier' || $field == $labelAttribute) {
-
+            
+            if ($type == 'pim_catalog_identifier' /* || $field == $labelAttribute*/) {
                 continue;
             }
 
