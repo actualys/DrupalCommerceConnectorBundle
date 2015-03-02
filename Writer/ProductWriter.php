@@ -43,6 +43,7 @@ class ProductWriter extends DrupalItemStep implements ItemWriterInterface
         foreach ($items as $item) {
             try {
                $drupalResponse = $this->webservice->sendProduct($item);
+                $this->stepExecution->incrementWriteCount();
             } catch (\Exception $e) {
                 $event = new InvalidItemEvent(
                   __CLASS__,

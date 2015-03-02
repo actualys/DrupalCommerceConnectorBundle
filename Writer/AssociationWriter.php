@@ -30,6 +30,8 @@ class AssociationWriter extends DrupalItemStep implements ItemWriterInterface
                 if (count($item[key($item)]) > 0) {
               //      $test = json_encode($item);
                     $drupalResponse = $this->webservice->sendAssociation($item);
+                    $this->stepExecution->incrementWriteCount();
+
                 }
             } catch (\Exception $e) {
                 $event = new InvalidItemEvent(

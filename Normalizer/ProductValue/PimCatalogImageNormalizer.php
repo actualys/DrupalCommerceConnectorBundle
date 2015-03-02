@@ -17,12 +17,10 @@ class PimCatalogImageNormalizer extends AbstractMediaNormalizer
      */
     public function __construct(
       $rootDir,
-      MediaManager $mediaManager,
-      $webservice_servername
+      MediaManager $mediaManager
     ) {
         $this->rootDir               = $rootDir;
         $this->mediaManager          = $mediaManager;
-        $this->webservice_servername = $webservice_servername;
     }
 
     /**
@@ -58,7 +56,7 @@ class PimCatalogImageNormalizer extends AbstractMediaNormalizer
               'attribute_id'      => $media->getValue()->getAttribute()->getId(
               ),
               'media_id'          => $media->getId(),
-              'rest_url'          => $this->webservice_servername.'/'.
+              'rest_url'          => '/'.
                 $productValue->getEntity()->getIdentifier().'/'.
                 $productValue->getAttribute()->getId()
                 ,

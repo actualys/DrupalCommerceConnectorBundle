@@ -36,9 +36,9 @@ class AttributeOptionWriter extends DrupalItemStep implements ItemWriterInterfac
 
         foreach ($items as $item) {
             try {
-                $test = json_encode($item);
                 $this->webservice->sendAttributeOption($item);
-                $this->stepExecution->incrementSummaryInfo('write');
+                $this->stepExecution->incrementWriteCount();
+
             } catch (\Exception $e) {
                 $event = new InvalidItemEvent(
                   __CLASS__,

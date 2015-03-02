@@ -40,6 +40,8 @@ class CategoryReader extends EntityReader
         $entities = [];
 
         while ($entity = parent::read()) {
+            $this->stepExecution->incrementReadCount();
+
             $entities[] = $entity;
         }
 
