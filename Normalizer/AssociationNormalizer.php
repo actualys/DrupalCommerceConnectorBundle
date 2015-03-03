@@ -32,6 +32,13 @@ class AssociationNormalizer implements NormalizerInterface
         $normalizedAssociations  = [];
         $identifierAttributeCode = $this->productManager->getIdentifierAttribute(
         )->getCode();
+        $sku = $product->getValue(
+          $this->productManager->getIdentifierAttribute()->getCode()
+        )->getData();
+
+        $normalizedAssociations['sku'] = $sku;
+        $normalizedAssociations['family'] = $product->getFamily()->getCode();
+        $normalizedAssociations['associations'] = [];
         foreach ($product->getAssociations() as $association) {
             $associationCode = $association->getAssociationType()->getCode();
 
@@ -40,19 +47,19 @@ class AssociationNormalizer implements NormalizerInterface
             ) {
 
                 /**@var Product $product * */
-                $normalizedAssociations[$associationCode] = [
+                $normalizedAssociations['associations'][$associationCode] = [
                   'type'     => null,
                   'groups'   => [],
                   'products' => [],
                 ];
 
-                $normalizedAssociations[$associationCode]['type'] = $associationCode;
+                $normalizedAssociations['associations'][$associationCode]['type'] = $associationCode;
                 foreach ($association->getGroups() as $group) {
-                    $normalizedAssociations[$associationCode]['groups'][] = $group->getCode(
+                    $normalizedAssociations['associations'][$associationCode]['groups'][] = $group->getCode(
                     );
                 }
                 foreach ($association->getProducts() as $product) {
-                    $normalizedAssociations[$associationCode]['products'][] = $product->getValue(
+                    $normalizedAssociations['associations'][$associationCode]['products'][] = $product->getValue(
                       $identifierAttributeCode
                     )->getData();
                 }

@@ -55,15 +55,11 @@ class AssociationProcessor extends DrupalItemStep implements ItemProcessorInterf
     public function process($product)
     {
         $result = [];
-        $sku = $product->getValue(
-          $this->productManager->getIdentifierAttribute()->getCode()
-        )->getData();
-        $result[$sku] = $this->normalizeAssociation(
+
+        return $this->normalizeAssociation(
           $product,
           $this->globalContext
-        );
-
-        return $result;
+        );;
     }
 
     /**
