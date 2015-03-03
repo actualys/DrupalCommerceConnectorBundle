@@ -26,7 +26,7 @@ class AttributeWriter extends DrupalItemStep implements ItemWriterInterface
         foreach ($items as $item) {
             try {
                 //   $test= json_encode($item);
-                $drupalResponse = $this->webservice->sendAttribute($item);
+          //      $drupalResponse = $this->webservice->sendAttribute($item);
                 $this->stepExecution->incrementWriteCount();
 
             } catch (\Exception $e) {

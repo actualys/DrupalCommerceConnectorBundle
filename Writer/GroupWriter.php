@@ -26,8 +26,6 @@ class GroupWriter extends DrupalItemStep implements ItemWriterInterface
         $count_errors = 0;
         foreach ($items as $item) {
             try {
-     //           $test = json_encode($item);
-
                 $drupalResponse = $this->webservice->sendGroup($item);
                 $this->stepExecution->incrementWriteCount();
 

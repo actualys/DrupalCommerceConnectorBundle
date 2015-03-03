@@ -24,7 +24,6 @@ class PimCatalogDateNormalizer implements ProductValueNormalizerInterface
       array $context = array()
     ) {
 
-        echo 'ty';
         $drupalProduct['values'][$field][] = array(
           'type' => 'pim_catalog_date',
           'value' => ($productValue->getDate() instanceof \DateTime) ? $productValue->getDate()->format('c') : null,
