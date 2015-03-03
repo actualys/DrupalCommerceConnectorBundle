@@ -5,6 +5,9 @@ Drupal Commerce Connector for Akeneo PIM OpenSource Project.
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/actualys/DrupalCommerceConnectorBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/actualys/DrupalCommerceConnectorBundle/?branch=master) [![Latest Stable Version](https://poser.pugx.org/actualys/drupal-commerce-connector-bundle/v/stable.svg)](https://packagist.org/packages/actualys/drupal-commerce-connector-bundle) [![Total Downloads](https://poser.pugx.org/actualys/drupal-commerce-connector-bundle/downloads.svg)](https://packagist.org/packages/actualys/drupal-commerce-connector-bundle) [![Latest Unstable Version](https://poser.pugx.org/actualys/drupal-commerce-connector-bundle/v/unstable.svg)](https://packagist.org/packages/actualys/drupal-commerce-connector-bundle) [![License](https://poser.pugx.org/actualys/drupal-commerce-connector-bundle/license.svg)](https://packagist.org/packages/actualys/drupal-commerce-connector-bundle)
 
+This bundle has been developped to export product settings and products to Drupal Commerce platform.
+A tailor made module for Drupal is required to integrates correctly all data.
+
 # Connector usage
 
 ## Export profiles available
@@ -32,17 +35,16 @@ Using the same mecanism as for `attribute option`, a taxonomy vocabulary is crea
 
 ### Product
 
-**code:** drupal_commerce_product_full_export
-**code:** drupal_commerce_product_delta_export
+**code:** drupal_commerce_product_full_export / drupal_commerce_product_delta_export
 
 Products are exported to Drupal using 2 mecanisms :
 - full: All products are exported each time
 - delta: Only new products or updated since last export
 
+Product are exported one by one with all their attributes, associations and group details.
+
 **Note:** Images (or files) are not exported directly with product other fields. They are provided/downloaded through a webservice (callback) used in the Drupal Migrate process.
 To make it possible, you need to setup the Akeneo url in your parameter.yml file, and setup login/password into Drupal Akeneo setup page.
-
-
 
 ## Configure a profile
 
