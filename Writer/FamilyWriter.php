@@ -51,7 +51,6 @@ class FamilyWriter extends DrupalItemStep implements ItemWriterInterface
 
                 // Handle next element.
             }
-            $this->stepExecution->incrementSummaryInfo('write');
             $i++;
         }
     }

@@ -27,7 +27,7 @@ class GroupWriter extends DrupalItemStep implements ItemWriterInterface
         foreach ($items as $item) {
             try {
                 $test = json_encode($item);
-                $drupalResponse = $this->webservice->sendGroup($item);
+     //           $drupalResponse = $this->webservice->sendGroup($item);
             } catch (\Exception $e) {
                 $event = new InvalidItemEvent(
                   basename(__CLASS__),
@@ -51,7 +51,6 @@ class GroupWriter extends DrupalItemStep implements ItemWriterInterface
                 throw $e;
                 $count_errors++;
             }
-            $this->stepExecution->incrementSummaryInfo('write');
         }
     }
 }

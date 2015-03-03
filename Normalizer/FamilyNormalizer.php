@@ -4,7 +4,7 @@ namespace Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer;
 
 use Pim\Bundle\CatalogBundle\Entity\Family;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
+use Pim\Bundle\CatalogBundle\Entity\Repository\AssociationTypeRepository;
 
 class FamilyNormalizer implements NormalizerInterface
 {
@@ -16,9 +16,13 @@ class FamilyNormalizer implements NormalizerInterface
     /**
      * @param AttributeNormalizer $attributeNormalizer The entity manager
      */
-    public function __construct(AttributeNormalizer $attributeNormalizer)
+    public function __construct(
+      AttributeNormalizer $attributeNormalizer,
+      AssociationTypeRepository $associationTypeRepository
+)
     {
         $this->attributeNormalizer = $attributeNormalizer;
+        $this->associationTypeRepository = $associationTypeRepository;
     }
 
     /**
@@ -40,6 +44,17 @@ class FamilyNormalizer implements NormalizerInterface
             $normalizedFamily['labels'][$trans->getLocale()] = $trans->getLabel(
             );
         }
+
+        $associations = $this->associationTypeRepository->findAll();
+        $normalizedFamily['associations'] = array();
+        foreach($associations as $association) {
+            $normalizedFamily['associations'][$association->getCode()] = array();
+            foreach ($association->getTranslations() as $assocTrans) {
+                $normalizedFamily['associations'][$association->getCode()]['labels'][$assocTrans->getLocale(
+                )] = $assocTrans->getLabel();
+            }
+        }
+
         foreach ($family->getAttributes() as $attr) {
             $normalizedFamily['attribute_groups'][$attr->getGroup()->getCode(
             )]['code'] = $attr->getGroup()->getCode();

@@ -9,24 +9,57 @@ Drupal Commerce Connector for Akeneo PIM OpenSource Project.
 
 Add this line in your parameters file:
 
-webservice_servername: # ex:  http://localhost/api/rest/media
+````
+# Your Akeneo server URL.
+webservice_servername: "http://akeneo.local/api/rest/media"
+````
 
-# Connector usage :
+# Connector usage
 
-- add an export profile among this list: 
-    - drupal_commerce_attribute_option_export
-    - drupal_commerce_category_export
-    - drupal_commerce_families_export
-    - drupal_commerce_product_delta_export
-    - drupal_commerce_product_full_export
+## Export profiles available
 
-- configure each profile you want to use:
-    - set drupal base url
-    - set endpoint (provide by Drupal Services module)
-    - set resource path (provide by Drupal Services module)
-    - set username (provide by Drupal Services module)
-    - set password (provide by Drupal Services module)
-    
+### Family
+
+**code:** drupal_commerce_family_export
+
+This export is the more complexe. It contains all information required to create a product type with all it's fields on Drupal side.
+It will create too taxonomy vocabularies (empty) if necessary.
+The first time a field instance is created, default widget is used with default settings. The second time this export profile is used, field instance settings are not overriden. So you are able to fine tune on Drupal side just after field are created by export profile.
+
+### Attribute option
+
+**code:** drupal_commerce_attribute_option_export
+
+Attribute option concerns only `single` and `multi select` field values. On Drupal side, it result in `taxonomy vocabulary` and `taxonomy terms` creation.
+Terms are translated using `i18n_string` mecanism.
+
+### Category
+
+**code:** drupal_commerce_category_export
+
+Using the same mecanism as for `attribute option`, a taxonomy vocabulary is created to hold `Catalog` tree.
+
+### Product
+
+**code:** drupal_commerce_product_full_export
+**code:** drupal_commerce_product_delta_export
+
+Products are exported to Drupal using 2 mecanisms :
+- full: All products are exported each time
+- delta: Only new products or updated since last export
+
+**Note:** Images (or files) are not exported directly with product other fields. They are provided/downloaded through a webservice (callback) used in the Drupal Migrate process.
+To make it possible, you need to setup the Akeneo url in your parameter.yml file, and setup login/password into Drupal Akeneo setup page.
+
+
+
+## Configure a profile
+
+- drupal base url (ex: "http://drupal.local")
+- endpoint (provide by Drupal Services module, ex: "json")
+- resource path (provide by Drupal Services module, ex: "akeneo")
+- username (provide by Drupal, ex: "admin")
+- password (provide by Drupal, ex: "password")
 
 # To do
 
@@ -34,5 +67,6 @@ webservice_servername: # ex:  http://localhost/api/rest/media
 
 # Bug and issues
 
-This bundle is still under active development. Expect bugs and instabilities. Feel free to report them on this repository's [issue section](https://github.com/akeneo/MagentoConnectorBundle/issues).
+This bundle is still under active development. Expect bugs and instabilities.
+Feel free to report them on this repository's [issue section](https://github.com/akeneo/MagentoConnectorBundle/issues).
 

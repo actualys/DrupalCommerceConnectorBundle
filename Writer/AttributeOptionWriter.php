@@ -59,7 +59,6 @@ class AttributeOptionWriter extends DrupalItemStep implements ItemWriterInterfac
                   ['code' => key($item)]
                 );
             }
-            $this->stepExecution->incrementSummaryInfo('write');
         }
     }
 }

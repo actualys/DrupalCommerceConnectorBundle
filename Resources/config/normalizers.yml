@@ -52,8 +52,9 @@ services:
 
     actualys_drupal_commerce_connector.normalizer.family:
         class: %actualys_drupal_commerce_connector.normalizer.family.class%
-        arguments :
+        arguments:
             - '@actualys_drupal_commerce_connector.normalizer.attribute'
+            - '@pim_catalog.repository.association_type'
 
     actualys_drupal_commerce_connector.normalizer.attribute_option:
         class: %actualys_drupal_commerce_connector.normalizer.attribute_option.class%

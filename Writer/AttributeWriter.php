@@ -46,10 +46,8 @@ class AttributeWriter extends DrupalItemStep implements ItemWriterInterface
                   array(),
                   ['code' => $item['code']]
                 );
-
                 // Handle next element.
             }
-            $this->stepExecution->incrementSummaryInfo('write');
         }
     }
 }
