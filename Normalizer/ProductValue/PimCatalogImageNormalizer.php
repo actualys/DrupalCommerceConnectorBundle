@@ -56,7 +56,7 @@ class PimCatalogImageNormalizer extends AbstractMediaNormalizer
               'attribute_id'      => $media->getValue()->getAttribute()->getId(
               ),
               'media_id'          => $media->getId(),
-              'rest_url'          => '/'.
+              'rest_url'          => '/api/rest/media/'.
                 $productValue->getEntity()->getIdentifier().'/'.
                 $productValue->getAttribute()->getId()
                 ,

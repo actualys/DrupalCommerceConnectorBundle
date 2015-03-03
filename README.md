@@ -10,9 +10,6 @@ Drupal Commerce Connector for Akeneo PIM OpenSource Project.
 Add this line in your parameters file:
 
 ````
-# Your Akeneo server URL.
-webservice_servername: "http://akeneo.local/api/rest/media"
-````
 
 # Connector usage
 
