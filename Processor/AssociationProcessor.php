@@ -59,7 +59,7 @@ class AssociationProcessor extends DrupalItemStep implements ItemProcessorInterf
         return $this->normalizeAssociation(
           $product,
           $this->globalContext
-        );;
+        );
     }
 
     /**

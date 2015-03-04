@@ -38,9 +38,9 @@ class ProductWriter extends DrupalItemStep implements ItemWriterInterface
      */
     public function write(array $items)
     {
-        //file_put_contents('product.json', json_encode($items));
         foreach ($items as $item) {
             try {
+
                $drupalResponse = $this->webservice->sendProduct($item);
                 $this->stepExecution->incrementWriteCount();
             } catch (\Exception $e) {

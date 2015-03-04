@@ -96,14 +96,14 @@ connector:
                          writer:    actualys_drupal_commerce_connector.writer.group
                      parameters:
                          batch_size: 1
-                export_associations:
-                    title:     actualys_drupal_commerce_connector.steps.association_export.export.title
-                    services:
-                        reader:    actualys_drupal_commerce_connector.reader.association
-                        processor: actualys_drupal_commerce_connector.processor.association
-                        writer:    actualys_drupal_commerce_connector.writer.association
-                    parameters:
-                        batch_size: 1
+#                export_associations:
+#                    title:     actualys_drupal_commerce_connector.steps.association_export.export.title
+#                    services:
+#                        reader:    actualys_drupal_commerce_connector.reader.association
+#                        processor: actualys_drupal_commerce_connector.processor.association
+#                        writer:    actualys_drupal_commerce_connector.writer.association
+#                    parameters:
+#                        batch_size: 1
         drupal_commerce_product_delta_export:
             title: actualys_drupal_commerce_connector.jobs.product_delta_export.title
             type:  export
@@ -124,11 +124,11 @@ connector:
                          writer:    actualys_drupal_commerce_connector.writer.group
                      parameters:
                          batch_size: 1
-                export_associations:
-                    title:     actualys_drupal_commerce_connector.steps.association_export.export.title
-                    services:
-                        reader:    actualys_drupal_commerce_connector.reader.association
-                        processor: actualys_drupal_commerce_connector.processor.association
-                        writer:    actualys_drupal_commerce_connector.writer.association
-                    parameters:
-                        batch_size: 1
+#                export_associations:
+#                    title:     actualys_drupal_commerce_connector.steps.association_export.export.title
+#                    services:
+#                        reader:    actualys_drupal_commerce_connector.reader.association
+#                        processor: actualys_drupal_commerce_connector.processor.association
+#                        writer:    actualys_drupal_commerce_connector.writer.association
+#                    parameters:
+#                        batch_size: 1

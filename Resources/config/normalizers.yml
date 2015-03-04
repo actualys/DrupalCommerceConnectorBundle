@@ -44,6 +44,7 @@ services:
             - '@pim_catalog.manager.channel'
             - '@actualys_drupal_commerce_connector.guesser.normalizer'
             - '@actualys_drupal_commerce_connector.repository.category'
+            - '@pim_catalog.manager.product'
 
     actualys_drupal_commerce_connector.normalizer.attribute:
         class: %actualys_drupal_commerce_connector.normalizer.attribute.class%
