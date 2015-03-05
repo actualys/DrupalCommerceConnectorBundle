@@ -87,10 +87,10 @@ class ProductNormalizer implements NormalizerInterface
     }
 
     /**
-     * @param  Product $product
+     * @param  $product
      * @return array
      */
-    public function getDefaultDrupalProduct(Product $product)
+    public function getDefaultDrupalProduct(ProductInterface $product)
     {
         $labels           = [];
         $attributeAsLabel = $product->getFamily()->getAttributeAsLabel();
@@ -191,8 +191,10 @@ class ProductNormalizer implements NormalizerInterface
     ) {
         /** @var Category $category */
         foreach ($product->getCategories() as $category) {
-            $drupalProduct['categories'][$this->formatedRootCategories[$category->getRoot(
-            )]][] = $category->getCode();
+            if ($category->getLevel() > 0) {
+                $drupalProduct['categories'][$this->formatedRootCategories[$category->getRoot(
+                )]][] = $category->getCode();
+            }
         }
     }
 
