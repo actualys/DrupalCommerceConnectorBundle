@@ -33,11 +33,9 @@ class AttributeOptionWriter extends DrupalItemStep implements ItemWriterInterfac
     public function write(array $items)
     {
         //      file_put_contents('options.json', json_encode($items));
-
         foreach ($items as $item) {
             try {
                 $this->webservice->sendAttributeOption($item);
-                $this->stepExecution->incrementWriteCount();
 
             } catch (\Exception $e) {
                 $event = new InvalidItemEvent(
@@ -46,19 +44,31 @@ class AttributeOptionWriter extends DrupalItemStep implements ItemWriterInterfac
                   array(),
                   ['code' => key($item)]
                 );
-                // Logging File
+                // Logging file
                 $this->eventDispatcher->dispatch(
                   EventInterface::INVALID_ITEM,
                   $event
                 );
-                // Logging Interface
+
+
+                // Loggin Interface
                 $this->stepExecution->addWarning(
                   __CLASS__,
                   $e->getMessage(),
                   array(),
-                  ['code' => key($item)]
+                  ['code' => key($item) ]
                 );
+
+                /** @var ClientErrorResponseException  $e */
+                if ($e->getResponse()->getStatusCode() <= 404) {
+                    $e = new \Exception($e->getResponse()->getReasonPhrase());
+                    $this->stepExecution->addFailureException($e);
+                    $exitStatus = new ExitStatus(ExitStatus::FAILED);
+                    $this->stepExecution->setExitStatus($exitStatus);
+                }
+                // Handle next element.
             }
+            $this->stepExecution->incrementWriteCount();
         }
     }
 }
