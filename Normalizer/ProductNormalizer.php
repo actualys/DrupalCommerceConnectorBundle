@@ -138,6 +138,11 @@ class ProductNormalizer implements NormalizerInterface
        /** @var Group $group */
        foreach ($product->getGroups() as $group) {
            $drupalProduct['groups'][$group->getType()->getCode()]['code'] = $group->getCode();
+           foreach ($group->getProducts() as $productInGroup) {
+               if ($product->getReference() != $productInGroup->getReference()) {
+                   $drupalProduct['groups'][$group->getType()->getCode()]['products'][] = $product->getReference();
+               }
+           }
        }
     }
 
