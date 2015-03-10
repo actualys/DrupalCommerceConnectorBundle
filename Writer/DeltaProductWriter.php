@@ -7,6 +7,7 @@ use Pim\Bundle\CatalogBundle\Manager\ChannelManager;
 use Pim\Bundle\DeltaExportBundle\Manager\ProductExportManager;
 use Akeneo\Bundle\BatchBundle\Entity\StepExecution;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Guzzle\Http\Exception\ClientErrorResponseException;
 
 class DeltaProductWriter extends ProductWriter
 {

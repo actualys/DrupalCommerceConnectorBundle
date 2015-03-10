@@ -26,7 +26,6 @@ class AttributeWriter extends DrupalItemStep implements ItemWriterInterface
         foreach ($items as $item) {
             try {
                  $this->webservice->sendAttribute($item);
-
             } catch (\Exception $e) {
                 $event = new InvalidItemEvent(
                   __CLASS__,

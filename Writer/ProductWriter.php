@@ -9,6 +9,7 @@ use Akeneo\Bundle\BatchBundle\Job\ExitStatus;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Akeneo\Bundle\BatchBundle\Event\EventInterface;
+
 /**
  * Class ProductWriter
  *
@@ -41,7 +42,7 @@ class ProductWriter extends DrupalItemStep implements ItemWriterInterface
     {
         foreach ($items as $item) {
             try {
-                $this->webservice->sendProduct($item);
+              $this->webservice->sendProduct($item);
             } catch (\Exception $e) {
                 $event = new InvalidItemEvent(
                   __CLASS__,
