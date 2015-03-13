@@ -33,7 +33,6 @@ class ProductProcessor extends DrupalItemStep implements ItemProcessorInterface
     /** @var  Channel $channel */
     protected $channel;
 
-    protected $mergeImages;
 
     /**
      * @param ProductManager    $productManager
@@ -116,13 +115,6 @@ class ProductProcessor extends DrupalItemStep implements ItemProcessorInterface
         return array_merge(
           parent::getConfigurationFields(),
           [
-            'mergeImages' => [
-              'type'    => 'checkbox',
-              'options' => [
-                'help'  => 'actualys_drupal_commerce_connector.export.mergeImages.help',
-                'label' => 'actualys_drupal_commerce_connector.export.mergeImages.label',
-              ],
-            ],
             'channel'     => [
               'type'    => 'choice',
               'options' => [
@@ -134,22 +126,6 @@ class ProductProcessor extends DrupalItemStep implements ItemProcessorInterface
             ],
           ]
         );
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getMergeImages()
-    {
-        return $this->mergeImages;
-    }
-
-    /**
-     * @param boolean $mergeImages
-     */
-    public function setMergeImages($mergeImages)
-    {
-        $this->mergeImages = $mergeImages;
     }
 
     /**

@@ -8,6 +8,7 @@ use Akeneo\Bundle\BatchBundle\Event\InvalidItemEvent;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Akeneo\Bundle\BatchBundle\Event\EventInterface;
 use Guzzle\Http\Exception\ClientErrorResponseException;
+use Akeneo\Bundle\BatchBundle\Job\ExitStatus;
 
 class AssociationWriter extends DrupalItemStep implements ItemWriterInterface
 {
@@ -63,6 +64,7 @@ class AssociationWriter extends DrupalItemStep implements ItemWriterInterface
                 // Handle next element.
             }
             $this->stepExecution->incrementSummaryInfo('write');
+            $this->stepExecution->incrementWriteCount();
         }
     }
 }

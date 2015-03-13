@@ -3,9 +3,9 @@ actualys_drupal_commerce_connector:
         product_export.title: "Export des produits vers Drupal Commerce"
         product_delta_export.title: "Export delta des produits vers Drupal Commerce"
         association_export.title: "Export des product_associations vers Drupal Commerce"
-        product_full_export.title: "Export complet vers Drupal Commerce"
+        product_full_export.title: "Export complet des produits produits vers Drupal Commerce"
         category_export.title: "Export catégories vers Drupal Commerce"
-        option_export.title: "Export d'options vers Drupal Commerce"
+        attribute_option_export.title: "Export des options d'attribut vers Drupal Commerce"
         attribute_export.title: "Export d'attributs vers Drupal Commerce"
         option_export.title: "Export des options d'attributs vers Drupal Commerce"
         group_export.title: "Export de groupes vers Drupal Commerce"
@@ -36,9 +36,6 @@ actualys_drupal_commerce_connector:
         httpPassword:
             label: Mot de passe
             help: "Si vous avez une authentification par http fournissez ici le mot de passe de votre connection http"
-        mergeImages:
-            label: Grouper les images
-            help: "Permet de créer un tableau d'images si les champs respectent le format 'xxxxx_9' => 'xxxxx'."
         channel:
             label: Exporter pour un channel donné
             help: "Permet d' exporter les produits par channel"

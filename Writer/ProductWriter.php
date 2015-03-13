@@ -24,8 +24,6 @@ class ProductWriter extends DrupalItemStep implements ItemWriterInterface
         $this->productandler   = $eventDispatcher;
     }
 
-    protected $mergeImages;
-
     /**x
      *
      * @return array
@@ -42,6 +40,7 @@ class ProductWriter extends DrupalItemStep implements ItemWriterInterface
     {
         foreach ($items as $item) {
             try {
+          //file_put_contents('product.json', json_encode($item));
               $this->webservice->sendProduct($item);
             } catch (\Exception $e) {
                 $event = new InvalidItemEvent(
@@ -75,22 +74,10 @@ class ProductWriter extends DrupalItemStep implements ItemWriterInterface
                 // Handle next element.
             }
             $this->stepExecution->incrementSummaryInfo('write');
+            $this->stepExecution->incrementWriteCount();
+
         }
     }
 
-    /**
-     * @return boolean
-     */
-    public function getMergeImages()
-    {
-        return $this->mergeImages;
-    }
 
-    /**
-     * @param boolean $mergeImages
-     */
-    public function setMergeImages($mergeImages)
-    {
-        $this->mergeImages = $mergeImages;
-    }
 }

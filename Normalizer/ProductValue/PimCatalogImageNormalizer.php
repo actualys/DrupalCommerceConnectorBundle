@@ -41,8 +41,7 @@ class PimCatalogImageNormalizer extends AbstractMediaNormalizer
             if (preg_match(
                 '/_[0-9]+$/',
                 $field
-              ) && $context['configuration']['mergeImages']
-            ) {
+              )) {
                 $field = preg_replace('/([_0-9]+)$/', '', $field);
             }
 
