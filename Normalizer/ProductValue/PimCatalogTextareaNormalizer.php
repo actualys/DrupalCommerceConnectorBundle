@@ -30,7 +30,6 @@ class PimCatalogTextareaNormalizer implements ProductValueNormalizerInterface
             $drupalProduct['values'][$field][$context['locale']][] = array(
               'type' => 'pim_catalog_textarea',
               'value' => $text,
-              'wysiwyg' => $attribute->isWysiwygEnabled()
             );
         }
     }

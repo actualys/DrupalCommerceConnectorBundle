@@ -2,7 +2,7 @@
 
 namespace Actualys\Bundle\DrupalCommerceConnectorBundle\Normalizer\ProductValue;
 
-use Pim\Bundle\CatalogBundle\Entity\Option;
+use Pim\Bundle\CatalogBundle\Entity\AttributeOption;
 use Pim\Bundle\CatalogBundle\Model\ProductValue;
 
 /**
@@ -25,12 +25,23 @@ class PimCatalogSimpleSelectNormalizer implements ProductValueNormalizerInterfac
       array $context = array()
     ) {
         $options = $productValue->getOptions();
-        /** @var \Pim\Bundle\CatalogBundle\Entity\Option $subValue */
-        foreach ($options->getValues() as $subValue) {
-            $drupalProduct['values'][$field][$context['locale']][] = [
-              'type' => 'pim_catalog_simpleselect',
-              'code' => $subValue->getCode(),
-            ];
+        if (is_array($options) && count($options) > 0) {
+            /** @var \Pim\Bundle\CatalogBundle\Entity\AttributeOption $subValue */
+            foreach ($options->getValues() as $subValue) {
+                $drupalProduct['values'][$field][$context['locale']][] = [
+                  'type' => 'pim_catalog_simpleselect',
+                  'code' => $subValue->getCode(),
+                ];
+            }
+        } else {
+            $option = $productValue->getOption();
+            if (is_object($option)) {
+                $drupalProduct['values'][$field][$context['locale']][] = [
+                  'type' => 'pim_catalog_simpleselect',
+                  'code' => $option->getCode(),
+                ];
+            }
+
         }
     }
 }
