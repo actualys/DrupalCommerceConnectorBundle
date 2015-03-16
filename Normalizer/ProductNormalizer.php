@@ -249,7 +249,6 @@ class ProductNormalizer implements NormalizerInterface
               'locale'        => $locale,
               'scope'         => $value->getScope(),
               'defaultLocale' => 'fr_FR',
-              'defaultLocale' => 'fr_FR',
               'configuration' => $configuration,
             ];
 
