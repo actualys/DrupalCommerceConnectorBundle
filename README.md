@@ -61,5 +61,5 @@ To make it possible, you need to setup the Akeneo url in your parameter.yml file
 # Bug and issues
 
 This bundle is still under active development. Expect bugs and instabilities.
-Feel free to report them on this repository's [issue section](https://github.com/akeneo/MagentoConnectorBundle/issues).
+Feel free to report them on this repository's [issue section](https://github.com/actualys/DrupalCommerceConnectorBundle/issues).
 
