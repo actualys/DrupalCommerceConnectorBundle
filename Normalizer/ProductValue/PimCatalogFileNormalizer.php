@@ -37,14 +37,6 @@ class PimCatalogFileNormalizer extends AbstractMediaNormalizer
     ) {
         $media = $productValue->getMedia();
         if ($media && null !== $media->getFilename()) {
-            if (preg_match(
-                '/_[0-9]+$/',
-                $field
-              ) && $context['configuration']['mergeFiles']
-            ) {
-                $field = preg_replace('/([_0-9]+)$/', '', $field);
-            }
-
             $drupalProduct['values'][$field][$context['locale']][] = [
               'type'              => 'media',
               'filename_original' => $media->getOriginalFilename(),

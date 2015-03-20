@@ -38,13 +38,6 @@ class PimCatalogImageNormalizer extends AbstractMediaNormalizer
     ) {
         $media = $productValue->getMedia();
         if ($media && null !== $media->getFilename()) {
-            if (preg_match(
-                '/_[0-9]+$/',
-                $field
-              )) {
-                $field = preg_replace('/([_0-9]+)$/', '', $field);
-            }
-
             $drupalProduct['values'][$field][$context['locale']][] = [
               'type'              => 'pim_catalog_image',
               'filename_original' => $media->getOriginalFilename(),
