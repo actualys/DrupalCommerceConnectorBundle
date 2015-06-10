@@ -44,7 +44,6 @@ class PimCatalogNumberNormalizer implements NormalizerInterface
           'localizable'       => $attribute->isLocalizable(),
           'unique_value'      => $attribute->isUnique(),
           'available_locales' => $availableLocales,
-          'default_value'     => $attribute->getDefaultValue(),
           'negative_allowed'  => $attribute->isNegativeAllowed(),
           'decimale_allowed'  => $attribute->isDecimalsAllowed(),
           'number_min'        => (bool) $attribute->getNumberMin(),

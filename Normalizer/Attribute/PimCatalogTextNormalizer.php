@@ -44,7 +44,6 @@ class PimCatalogTextNormalizer implements NormalizerInterface
           'localizable'       => $attribute->isLocalizable(),
           'unique_value'      => $attribute->isUnique(),
           'available_locales' => $availableLocales,
-          'default_value'     => $attribute->getDefaultValue(),
           'max_characters'    => $attribute->getMaxCharacters(),
           'validation_rule'   => $attribute->getValidationRule(),
         ];
