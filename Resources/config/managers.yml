@@ -1,0 +1,15 @@
+parameters:
+     actualys_drupal_commerce_connector.manager.product_export.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Manager\ProductExportManager
+
+services:
+    actualys_drupal_commerce_connector.manager.product_export:
+        class: %actualys_drupal_commerce_connector.manager.product_export.class%
+        arguments:
+            - @doctrine.orm.entity_manager
+            - %pim_delta_export.entity.product_export.class%
+            - %pim_catalog.entity.product.class%
+
+    actualys_drupal_commerce_connector.manager.product_value_export:
+        parent: actualys_drupal_commerce_connector.manager.product_export
+        arguments:
+            - true

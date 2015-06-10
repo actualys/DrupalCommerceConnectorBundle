@@ -23,30 +23,41 @@ class CategoryWriter extends DrupalItemStep implements ItemWriterInterface
         //file_put_contents('categories.json', json_encode($items));
         foreach ($items[0] as $item) {
             try {
-                //    $test= json_encode($item);
-                $drupalResponse = $this->webservice->sendCategory($item);
+                 $this->webservice->sendCategory($item);
             } catch (\Exception $e) {
                 $event = new InvalidItemEvent(
                   __CLASS__,
                   $e->getMessage(),
                   array(),
-                  ['code' => $item['code']]
+                  ['code' => array_key_exists('code', $item) ? $item['code'] : 'NULL']
                 );
                 // Logging file
                 $this->eventDispatcher->dispatch(
                   EventInterface::INVALID_ITEM,
                   $event
                 );
+
+
                 // Loggin Interface
                 $this->stepExecution->addWarning(
                   __CLASS__,
                   $e->getMessage(),
                   array(),
-                  ['code' => $item['code']]
+                  ['code' => array_key_exists('code', $item) ? $item['code'] : 'NULL']
                 );
 
+                /** @var ClientErrorResponseException  $e */
+                if ($e->getResponse()->getStatusCode() <= 404) {
+                    $e = new \Exception($e->getResponse()->getReasonPhrase());
+                    $this->stepExecution->addFailureException($e);
+                    $exitStatus = new ExitStatus(ExitStatus::FAILED);
+                    $this->stepExecution->setExitStatus($exitStatus);
+                }
                 // Handle next element.
             }
+            $this->stepExecution->incrementSummaryInfo('write');
+            $this->stepExecution->incrementWriteCount();
+
         }
     }
 }

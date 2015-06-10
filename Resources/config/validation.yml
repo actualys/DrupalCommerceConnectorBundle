@@ -1,0 +1,26 @@
+Pim\Bundle\CatalogBundle\Entity\Attribute:
+    properties:
+        code:
+            - Length:
+                max: 25
+                groups: [ActualysValidation]
+Pim\Bundle\CatalogBundle\Entity\AttributeOption:
+    properties:
+        code:
+            - Length:
+                max: 60
+                groups: [ActualysValidation]
+
+Pim\Bundle\CatalogBundle\Entity\Family:
+    properties:
+        code:
+            - Length:
+                max: 24
+                groups: [ActualysValidation]
+
+Pim\Bundle\CatalogBundle\Entity\FamilyTranslation:
+    properties:
+        label:
+            - Length:
+                max: 100
+                groups: [ActualysValidation]

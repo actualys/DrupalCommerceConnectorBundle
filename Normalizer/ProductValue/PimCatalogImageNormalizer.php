@@ -17,12 +17,10 @@ class PimCatalogImageNormalizer extends AbstractMediaNormalizer
      */
     public function __construct(
       $rootDir,
-      MediaManager $mediaManager,
-      $webservice_servername
+      MediaManager $mediaManager
     ) {
         $this->rootDir               = $rootDir;
         $this->mediaManager          = $mediaManager;
-        $this->webservice_servername = $webservice_servername;
     }
 
     /**
@@ -40,14 +38,6 @@ class PimCatalogImageNormalizer extends AbstractMediaNormalizer
     ) {
         $media = $productValue->getMedia();
         if ($media && null !== $media->getFilename()) {
-            if (preg_match(
-                '/_[0-9]+$/',
-                $field
-              ) && $context['configuration']['mergeImages']
-            ) {
-                $field = preg_replace('/([_0-9]+)$/', '', $field);
-            }
-
             $drupalProduct['values'][$field][$context['locale']][] = [
               'type'              => 'pim_catalog_image',
               'filename_original' => $media->getOriginalFilename(),
@@ -58,7 +48,7 @@ class PimCatalogImageNormalizer extends AbstractMediaNormalizer
               'attribute_id'      => $media->getValue()->getAttribute()->getId(
               ),
               'media_id'          => $media->getId(),
-              'rest_url'          => $this->webservice_servername.'/'.
+              'rest_url'          => '/api/rest/media/'.
                 $productValue->getEntity()->getIdentifier().'/'.
                 $productValue->getAttribute()->getId()
                 ,

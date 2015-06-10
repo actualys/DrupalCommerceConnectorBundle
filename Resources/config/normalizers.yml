@@ -44,6 +44,7 @@ services:
             - '@pim_catalog.manager.channel'
             - '@actualys_drupal_commerce_connector.guesser.normalizer'
             - '@actualys_drupal_commerce_connector.repository.category'
+            - '@pim_catalog.manager.product'
 
     actualys_drupal_commerce_connector.normalizer.attribute:
         class: %actualys_drupal_commerce_connector.normalizer.attribute.class%
@@ -132,7 +133,6 @@ services:
           arguments:
               - %kernel.root_dir%
               - @pim_catalog.manager.media
-              - %webservice_servername%
           tags:
               - {name: actualys_drupal_commerce_connector.normalizer.product_value, alias: pim_catalog_image.product_value}
 
@@ -199,8 +199,5 @@ services:
 
     actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_image:
         class: %actualys_drupal_commerce_connector.normalizer.attribute.pim_catalog_image.class%
-        arguments:
-            - %webservice_servername%
-
         tags:
             - {name: actualys_drupal_commerce_connector.normalizer.attribute, alias: pim_catalog_image.attribute}

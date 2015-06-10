@@ -2,148 +2,182 @@
 
 namespace Actualys\Bundle\DrupalCommerceConnectorBundle\Webservice\Transport;
 
-use Guzzle\Http\Client;
-use Guzzle\Http\Exception\RequestException;
-use Guzzle\Http\Exception\ServerErrorResponseException;
-use Guzzle\Plugin\Cookie\CookiePlugin;
-use Guzzle\Plugin\Cookie\CookieJar\ArrayCookieJar;
-use Guzzle\Http\Exception\BadResponseException;
 use Actualys\Bundle\DrupalCommerceConnectorBundle\Webservice\Exception\RestConnectionException;
+use Guzzle\Http\Client;
+use Guzzle\Http\Exception\BadResponseException;
+use Guzzle\Plugin\Cookie\CookieJar\ArrayCookieJar;
+use Guzzle\Plugin\Cookie\CookiePlugin;
 
 class DrupalRestClient
 {
-    /**
-     * @var DrupalRestClient
-     * @access private
-     * @static
-     */
-    protected static $instance = null;
-
     /** @const  string */
     const REST_URL_USER_LOGIN = 'user/login';
 
     /** @const  string */
-    const REST_URL_GET_CSRF_TOKEN = 'user/token';
+    const REST_URL_USER_LOGOUT = 'user/logout';
 
-    /** @var  string */
-    protected $csrfToken;
-
-    /** @var array */
-    protected $parameters;
+    /** @const  string */
+    const REST_URL_USER_TOKEN = 'user/token';
 
     /** @var  Client */
     protected $client;
+
+    /** @var  array */
+    protected $parameters;
+
+    /** @var  bool */
+    protected $connected;
 
     /**
      * @throws RestConnectionException
      */
     public function __construct()
     {
+        $this->client     = null;
         $this->parameters = array();
+        $this->connected  = false;
+    }
+
+    /**
+     *
+     */
+    public function __destruct()
+    {
+       $this->logout();
     }
 
     /**
      * @param  array $parameters
+     *
      * @return $this
      */
     public function setParameters(array $parameters)
     {
-        $this->parameters = $parameters;
+        // Close any previous opened connection.
+        $this->logout();
 
-        // Todo: kill any previously created session.
+        $this->parameters = $parameters;
 
         return $this;
     }
 
     /**
-     * @throws RestConnectionException
+     * @param  string $method
+     * @param  array  $data
+     *
+     * @return mixed
      */
-    protected function connect()
+    public function call($method, $data = array())
     {
-        if (!$this->csrfToken) {
-            try {
-                // Session cookie
-                $cookiePlugin = new CookiePlugin(new ArrayCookieJar());
-                $this->client = new Client($this->parameters['base_url']);
-                $this->client->addSubscriber($cookiePlugin);
+        $this->login();
 
-                $this->client->post(
-                  self::REST_URL_USER_LOGIN,
-                  array('Content-Type' => 'application/json'),
-                  json_encode(
-                    array(
-                      'username' => $this->parameters['user'],
-                      'password' => $this->parameters['pwd'],
-                      'form_id'  => 'user_login_form',
-                    )
-                  )
-                )->send();
+        $response = $this->remoteCall(
+          $this->parameters['endpoint'].'/'.$this->parameters['resource_path'].'/'.$method,
+          array('X-CSRF-Token' => $this->generateCsrfToken()),
+          $data
+        );
 
-                // Csrf token
-                $this->csrfToken = $this->requestCsrfToken();
-            } catch (\Exception $e) {
-                throw new RestConnectionException(
-                  'Unable to connect to REST server'
-                );
-            }
+        return $response;
+    }
+
+    /**
+     * @return \Guzzle\Http\Client
+     */
+    protected function getClient()
+    {
+        if (is_null($this->client)) {
+            $cookiePlugin = new CookiePlugin(new ArrayCookieJar());
+            $this->client = new Client($this->parameters['base_url']);
+            $this->client->addSubscriber($cookiePlugin);
         }
+
+        return $this->client;
     }
 
     /**
      * @return string
      */
-    protected function requestCsrfToken()
+    protected function generateCsrfToken()
     {
-        $this->client = new Client(
-          $this->parameters['base_url'].'/'.$this->parameters['endpoint']
-        );
-        $response = $this->client->post(
-          self::REST_URL_GET_CSRF_TOKEN,
-          array('Content-Type' => 'application/json'),
+        $request = $this->getClient()->post(
+          $this->parameters['endpoint'].'/'.self::REST_URL_USER_TOKEN,
+          array(
+            'Accept'       => 'application/json',
+            'Content-Type' => 'application/json',
+          ),
           json_encode(array())
         )->send();
-        $responseAsString = $response->getBody(true);
 
-        if (empty($responseAsString)) {
-            throw new BadResponseException('CSRF token recovery problem');
+        $response = json_decode($request->getBody(true));
+
+        if (empty($response)) {
+            throw new BadResponseException('Error while retrieving CSRF Token.');
         }
 
-        return $response->getBody(true);
+        return $response->token;
     }
 
     /**
-     * @param  string                              $method
-     * @param  array                               $data
-     * @return \Guzzle\Http\Message\Response|mixed
+     * @param string $uri
+     * @param array  $headers
+     * @param array  $data
+     *
+     * @return mixed
      */
-    public function call($method, $data = array())
+    protected function remoteCall($uri, $headers = array(), $data = array())
     {
-        try {
-            $this->connect();
+        $headers += array(
+          'Accept'       => 'application/json',
+          'Content-Type' => 'application/json',
+        );
 
-            $response = $this->client->post(
-              $this->parameters['resource_path'].'/'.$method,
-              array(
-                'Content-Type' => 'application/json',
-                'X-CSRF-Token' => $this->csrfToken,
-              ),
-              json_encode($data)
-            )->send();
-        } catch (ServerErrorResponseException $e) {
-            $message = $e->getResponse()->getBody(true);
+        $request = $this->getClient()->post(
+          $uri,
+          $headers,
+          json_encode($data)
+        )->send();
 
-            throw new RequestException(
-              $message,
-              $e->getResponse()->getStatusCode()
-            );
-        }
+        $response = json_decode($request->getBody(true));
 
-        $response = json_decode($response->getBody(true));
-
-        if (empty($response)) {
-            throw new RequestException('Invalid JSON Response');
+        if ($response === false) {
+            throw new BadResponseException('Bad response.');
         }
 
         return $response;
+    }
+
+    /**
+     * @throws RestConnectionException
+     */
+    protected function login()
+    {
+        if (!$this->connected) {
+            $this->remoteCall(
+              $this->parameters['endpoint'].'/'.self::REST_URL_USER_LOGIN,
+              array('X-CSRF-Token' => $this->generateCsrfToken()),
+              array(
+                'username' => $this->parameters['user'],
+                'password' => $this->parameters['pwd'],
+              )
+            );
+
+            $this->connected = true;
+        }
+    }
+
+    /**
+     *
+     */
+    protected function logout()
+    {
+        if ($this->client && $this->connected) {
+            $this->remoteCall(
+              $this->parameters['endpoint'].'/'.self::REST_URL_USER_LOGOUT,
+              array('X-CSRF-Token' => $this->generateCsrfToken())
+            );
+        }
+
+        $this->client    = null;
+        $this->connected = false;
     }
 }

@@ -11,6 +11,9 @@ use Pim\Bundle\CatalogBundle\Manager\ChannelManager;
 use Pim\Bundle\CatalogBundle\Model\ProductInterface;
 use Pim\Bundle\CatalogBundle\Entity\Channel;
 use Pim\Bundle\CatalogBundle\Entity\Repository\CategoryRepository;
+use Pim\Bundle\CatalogBundle\Entity\Repository\GroupRepository;
+use Pim\Bundle\CatalogBundle\Entity\Group;
+use Pim\Bundle\CatalogBundle\Manager\ProductManager;
 
 class ProductNormalizer implements NormalizerInterface
 {
@@ -19,11 +22,15 @@ class ProductNormalizer implements NormalizerInterface
      */
     protected $normalizerGuesser;
 
-    /** @var ChannelManager $channelManager */
-    protected $channelManager;
 
     /** @var CategoryRepository $categoryRepository */
     protected $categoryRepository;
+
+    /** @var ChannelManager $channelManager */
+    protected $channelManager;
+
+    /** @var ProductManager $channelManager */
+    protected $productManager;
 
     /** @var Array $rootCategories */
     protected $rootCategories;
@@ -38,11 +45,14 @@ class ProductNormalizer implements NormalizerInterface
     public function __construct(
       ChannelManager $channelManager,
       NormalizerGuesser $normalizerGuesser,
-      CategoryRepository $categoryRepository
+      CategoryRepository $categoryRepository,
+      ProductManager $productManager
     ) {
         $this->channelManager     = $channelManager;
+        $this->productManager     = $channelManager;
         $this->normalizerGuesser  = $normalizerGuesser;
         $this->categoryRepository = $categoryRepository;
+        $this->productManager     = $productManager;
 
         if (empty($this->formatedRootCategories)) {
             $this->rootCategories = $this->categoryRepository->getRootNodes();
@@ -64,6 +74,8 @@ class ProductNormalizer implements NormalizerInterface
     {
         $drupalProduct = $this->getDefaultDrupalProduct($product);
         $this->computeProductCategory($product, $drupalProduct);
+        $this->computeProductGroup($product, $drupalProduct);
+        $this->computeProductAssociation($product, $drupalProduct);
         $this->computeProductValues(
           $product,
           $drupalProduct,
@@ -75,10 +87,10 @@ class ProductNormalizer implements NormalizerInterface
     }
 
     /**
-     * @param  Product $product
+     * @param  $product
      * @return array
      */
-    public function getDefaultDrupalProduct(Product $product)
+    public function getDefaultDrupalProduct(ProductInterface $product)
     {
         $labels           = [];
         $attributeAsLabel = $product->getFamily()->getAttributeAsLabel();
@@ -106,10 +118,72 @@ class ProductNormalizer implements NormalizerInterface
           'status'     => $product->isEnabled(),
           'labels'     => $labels,
           'categories' => [],
+          'groups' => [],
+          'associations' => [],
           'values'     => [],
         ];
 
         return $defaultDrupalProduct;
+    }
+
+    /**
+     * @param ProductInterface $product
+     * @param array            $drupalProduct
+     */
+    protected function computeProductGroup(
+      ProductInterface $product,
+      array &$drupalProduct
+    ) {
+
+       /** @var Group $group */
+       foreach ($product->getGroups() as $group) {
+           $drupalProduct['groups'][$group->getType()->getCode()]['code'] = $group->getCode();
+           foreach ($group->getProducts() as $productInGroup) {
+               if ($product->getReference() != $productInGroup->getReference()) {
+                   $drupalProduct['groups'][$group->getType()->getCode()]['products'][] = $product->getReference();
+               }
+           }
+       }
+    }
+
+    /**
+     * @param ProductInterface $product
+     * @param array            $drupalProduct
+     */
+    protected function computeProductAssociation(
+      ProductInterface $product,
+      array &$drupalProduct
+    ) {
+
+        $identifierAttributeCode = $this->productManager->getIdentifierAttribute(
+        )->getCode();
+       /** @var Group $group */
+       foreach ($product->getAssociations() as $association) {
+           $associationCode = $association->getAssociationType()->getCode();
+
+           if ($association->getGroups()->count(
+             ) > 0 || $association->getProducts()->count() > 0
+           ) {
+
+               /**@var Product $product * */
+               $drupalProduct['associations'][$associationCode] = [
+                 'type'     => null,
+                 'groups'   => [],
+                 'products' => [],
+               ];
+
+               $drupalProduct['associations'][$associationCode]['type'] = $associationCode;
+               foreach ($association->getGroups() as $group) {
+                   $drupalProduct['associations'][$associationCode]['groups'][] = $group->getCode(
+                   );
+               }
+               foreach ($association->getProducts() as $product) {
+                   $drupalProduct['associations'][$associationCode]['products'][] = $product->getValue(
+                     $identifierAttributeCode
+                   )->getData();
+               }
+           }
+       }
     }
 
     /**
@@ -122,8 +196,10 @@ class ProductNormalizer implements NormalizerInterface
     ) {
         /** @var Category $category */
         foreach ($product->getCategories() as $category) {
-            $drupalProduct['categories'][$this->formatedRootCategories[$category->getRoot(
-            )]][] = $category->getCode();
+            if ($category->getLevel() > 0) {
+                $drupalProduct['categories'][$this->formatedRootCategories[$category->getRoot(
+                )]][] = $category->getCode();
+            }
         }
     }
 
@@ -172,7 +248,6 @@ class ProductNormalizer implements NormalizerInterface
             $context = [
               'locale'        => $locale,
               'scope'         => $value->getScope(),
-              'defaultLocale' => 'fr_FR',
               'defaultLocale' => 'fr_FR',
               'configuration' => $configuration,
             ];

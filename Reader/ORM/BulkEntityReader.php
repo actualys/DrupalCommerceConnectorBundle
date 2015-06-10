@@ -22,6 +22,7 @@ class BulkEntityReader extends EntityReader
 
         while ($entity = parent::read()) {
             $entities[] = $entity;
+            $this->stepExecution->incrementReadCount();
         }
 
         return empty($entities) ? null : $entities;

@@ -5,7 +5,7 @@ actualys_drupal_commerce_connector:
         association_export.title: "Export product_associations to Drupal Commerce"
         product_full_export.title: "Export to complete Drupal Commerce"
         category_export.title: "Export categories to Drupal Commerce"
-        option_export.title: "Export options to Drupal Commerce"
+        attribute_option_export.title: "Export attribute options to Drupal Commerce"
         attribute_export.title: "Export attributes to Drupal Commerce"
         option_export.title: "Export attribute options to Drupal Commerce"
         group_export.title: "Export groups to Drupal Commerce"
@@ -34,11 +34,16 @@ actualys_drupal_commerce_connector:
             label: "Username"
             help: "Drupal username for service access(This user have permission to access service and create/update)"
         httpPassword:
+<<<<<<< HEAD
             label: Password
             help: "Password for user"
         mergeImages:
             label: Grouping images
             help: "Lets you create a table image if fields follow the format 'xxxxx_9' => 'xxxxx'."
+=======
+            label: Mot de passe
+            help: "Si vous avez une authentification par http fournissez ici le mot de passe de votre connection http"
+>>>>>>> 3996b596882dfd922c71e5b4438212f80ab79d51
         channel:
             label: Export to a given channel
             help: "Allows you to export the products by channel"

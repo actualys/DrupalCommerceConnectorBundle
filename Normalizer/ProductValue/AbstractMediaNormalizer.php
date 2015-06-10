@@ -16,10 +16,6 @@ abstract class AbstractMediaNormalizer implements ProductValueNormalizerInterfac
      */
     protected $rootDir;
 
-    /**
-     * @var string
-     */
-    protected $webservice_servername;
 
     /**
      * @var MediaManager
@@ -32,22 +28,6 @@ abstract class AbstractMediaNormalizer implements ProductValueNormalizerInterfac
       $field,
       array $context = array()
     ) {
-    }
-
-    /**
-     * @return string
-     */
-    public function getWebserviceServername()
-    {
-        return $this->webservice_servername;
-    }
-
-    /**
-     * @param string $webservice_servername
-     */
-    public function setWebserviceServername($webservice_servername)
-    {
-        $this->webservice_servername = $webservice_servername;
     }
 
     /**

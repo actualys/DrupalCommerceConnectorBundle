@@ -7,6 +7,8 @@ use Akeneo\Bundle\BatchBundle\Item\ItemWriterInterface;
 use Akeneo\Bundle\BatchBundle\Event\InvalidItemEvent;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Akeneo\Bundle\BatchBundle\Event\EventInterface;
+use Guzzle\Http\Exception\ClientErrorResponseException;
+
 
 class FamilyWriter extends DrupalItemStep implements ItemWriterInterface
 {
@@ -25,33 +27,43 @@ class FamilyWriter extends DrupalItemStep implements ItemWriterInterface
     {
 
         //file_put_contents('families.json', json_encode($items));
-        $i = 0;
         foreach ($items as $item) {
             try {
-                $drupalResponse = $this->webservice->sendFamily($item);
+                $this->webservice->sendFamily($item);
             } catch (\Exception $e) {
                 $event = new InvalidItemEvent(
                   __CLASS__,
                   $e->getMessage(),
                   array(),
-                  ['code' => $item['code']]
+                  ['code' => array_key_exists('code', $item) ? $item['code'] : 'NULL']
                 );
                 // Logging file
                 $this->eventDispatcher->dispatch(
                   EventInterface::INVALID_ITEM,
                   $event
                 );
+
+
                 // Loggin Interface
                 $this->stepExecution->addWarning(
                   __CLASS__,
                   $e->getMessage(),
                   array(),
-                  ['code' => $item['code']]
+                  ['code' => array_key_exists('code', $item) ? $item['code'] : 'NULL']
                 );
 
+                /** @var ClientErrorResponseException  $e */
+                if ($e->getResponse()->getStatusCode() <= 404) {
+                    $e = new \Exception($e->getResponse()->getReasonPhrase());
+                    $this->stepExecution->addFailureException($e);
+                    $exitStatus = new ExitStatus(ExitStatus::FAILED);
+                    $this->stepExecution->setExitStatus($exitStatus);
+                }
                 // Handle next element.
             }
-            $i++;
+            $this->stepExecution->incrementSummaryInfo('write');
+            $this->stepExecution->incrementWriteCount();
+
         }
     }
 }

@@ -7,6 +7,8 @@ use Akeneo\Bundle\BatchBundle\Item\ItemWriterInterface;
 use Akeneo\Bundle\BatchBundle\Event\InvalidItemEvent;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Akeneo\Bundle\BatchBundle\Event\EventInterface;
+use Guzzle\Http\Exception\ClientErrorResponseException;
+use Akeneo\Bundle\BatchBundle\Job\ExitStatus;
 
 class AssociationWriter extends DrupalItemStep implements ItemWriterInterface
 {
@@ -28,32 +30,41 @@ class AssociationWriter extends DrupalItemStep implements ItemWriterInterface
             try {
                 // Send only when association exist
                 if (count($item[key($item)]) > 0) {
-              //      $test = json_encode($item);
-                    $drupalResponse = $this->webservice->sendAssociation($item);
+                    $this->webservice->sendAssociation($item);
                 }
             } catch (\Exception $e) {
                 $event = new InvalidItemEvent(
                   __CLASS__,
                   $e->getMessage(),
                   array(),
-                  ['sku' => key($item)]
+                  ['sku' => array_key_exists('sku', $item) ? $item['sku'] : 'NULL']
                 );
                 // Logging file
                 $this->eventDispatcher->dispatch(
                   EventInterface::INVALID_ITEM,
                   $event
                 );
+
+
                 // Loggin Interface
                 $this->stepExecution->addWarning(
                   __CLASS__,
                   $e->getMessage(),
                   array(),
-                  ['sku' => key($item)]
+                  ['sku' => array_key_exists('sku', $item) ? $item['sku'] : 'NULL']
                 );
 
+                /** @var ClientErrorResponseException  $e */
+                if ($e->getResponse()->getStatusCode() <= 404) {
+                    $e = new \Exception($e->getResponse()->getReasonPhrase());
+                    $this->stepExecution->addFailureException($e);
+                    $exitStatus = new ExitStatus(ExitStatus::FAILED);
+                    $this->stepExecution->setExitStatus($exitStatus);
+                }
                 // Handle next element.
             }
             $this->stepExecution->incrementSummaryInfo('write');
+            $this->stepExecution->incrementWriteCount();
         }
     }
 }
