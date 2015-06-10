@@ -1,41 +1,44 @@
 actualys_drupal_commerce_connector:
     jobs:
-        product_export.title: "Export des produits vers Drupal Commerce"
-        product_delta_export.title: "Export delta des produits vers Drupal Commerce"
-        association_export.title: "Export des product_associations vers Drupal Commerce"
-        product_full_export.title: "Export complet des produits produits vers Drupal Commerce"
-        category_export.title: "Export catégories vers Drupal Commerce"
-        attribute_option_export.title: "Export des options d'attribut vers Drupal Commerce"
-        attribute_export.title: "Export d'attributs vers Drupal Commerce"
-        option_export.title: "Export des options d'attributs vers Drupal Commerce"
-        group_export.title: "Export de groupes vers Drupal Commerce"
-        family_export.title: "Export de familles vers Drupal Commerce"
-        option_attribute.title: "Export des options d'attribut vers Drupal Commerce"
+        product_export.title: "Export products to Drupal Commerce"
+        product_delta_export.title: "Delta export products to Drupal Commerce"
+        association_export.title: "Export product_associations to Drupal Commerce"
+        product_full_export.title: "Export to complete Drupal Commerce"
+        category_export.title: "Export categories to Drupal Commerce"
+        attribute_option_export.title: "Export attribute options to Drupal Commerce"
+        attribute_export.title: "Export attributes to Drupal Commerce"
+        option_export.title: "Export attribute options to Drupal Commerce"
+        group_export.title: "Export groups to Drupal Commerce"
+        family_export.title: "Export families to Drupal Commerce"
+        option_attribute.title: "Export attribute options to Drupal Commerce"
     steps:
-        product_full_export.export.title: Export complets de produits
-        product_delta_export.export.title: Export delta de produits
-        product_export.export.title: Export simple de produits
-        group_export.export.title: Export de groupes
-        attribute_export.export.title: Export d'attributs
-        option_export.export.title: Export des options d'attributs
-        family_export.export.title: Export des familles de produits
-        category_export.export.title: Export des categories de produits
+        product_full_export.export.title: Complete product export
+        product_delta_export.export.title: Export products delta
+        product_export.export.title: Single product export
+        group_export.export.title: Export groups
+        attribute_export.export.title: Export Attributes
+        option_export.export.title: Export attribute options
+        family_export.export.title: Export Product Families
+        category_export.export.title: Export products categories
     export:
         baseUrl:
-            label: "Url Drupal"
-            help:  "L'url de votre installation Drupal"
+            label: "Drupal Url"
+            help:  "Url of Drupal site"
         endpoint:
-            label: "Url du Enpoint"
-            help:  "L'url du Endpoint Drupal (configuré via Services)"
+            label: "Url Enpoint"
+            help:  "The URL of the Drupal Endpoint (configured via Services)"
         resourcePath:
-            label: "Chemin de la ressource"
-            help:  "(configuré via Services)"
+            label: "Resource path"
+            help:  "Resource path of Akeneo connector resource(configured via Services)"
         httpLogin:
-            label: "Nom d'utilisateur"
-            help: "Si vous avez une authentification par http fournissez ici votre nom d'utilisateur de votre connection http"
+            label: "Username"
+            help: "Drupal username for service access(This user have permission to access service and create/update)"
         httpPassword:
-            label: Mot de passe
-            help: "Si vous avez une authentification par http fournissez ici le mot de passe de votre connection http"
+            label: Password
+            help: "Password for user"
+        mergeImages:
+            label: Grouping images
+            help: "Lets you create a table image if fields follow the format 'xxxxx_9' => 'xxxxx'."
         channel:
-            label: Exporter pour un channel donné
-            help: "Permet d' exporter les produits par channel"
+            label: Export to a given channel
+            help: "Allows you to export the products by channel"
