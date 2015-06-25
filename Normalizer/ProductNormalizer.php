@@ -35,8 +35,8 @@ class ProductNormalizer implements NormalizerInterface
     /** @var Array $rootCategories */
     protected $rootCategories;
 
-    /** @var Array $formatedRootCategories */
-    protected $formatedRootCategories;
+    /** @var Array $formattedRootCategories */
+    private $formattedRootCategories;
 
     /**
      * @param ChannelManager    $channelManager
@@ -53,14 +53,25 @@ class ProductNormalizer implements NormalizerInterface
         $this->normalizerGuesser  = $normalizerGuesser;
         $this->categoryRepository = $categoryRepository;
         $this->productManager     = $productManager;
+    }
 
-        if (empty($this->formatedRootCategories)) {
+    /**
+     * Returns formatted root categories
+     *
+     *
+     * @return array
+     */
+    protected function getFormattedRootCategory($code)
+    {
+        if (empty($this->formattedRootCategories)) {
             $this->rootCategories = $this->categoryRepository->getRootNodes();
             foreach ($this->rootCategories as $rootCategory) {
-                $this->formatedRootCategories[$rootCategory->getId(
+                $this->formattedRootCategories[$rootCategory->getId(
                 )] = $rootCategory->getCode();
             }
-        }
+        };
+
+        return $this->formattedRootCategories[$code];
     }
 
     /**
@@ -197,8 +208,8 @@ class ProductNormalizer implements NormalizerInterface
         /** @var Category $category */
         foreach ($product->getCategories() as $category) {
             if ($category->getLevel() > 0) {
-                $drupalProduct['categories'][$this->formatedRootCategories[$category->getRoot(
-                )]][] = $category->getCode();
+                $drupalProduct['categories'][$this->getFormattedRootCategory($category->getRoot())][] =
+                    $category->getCode();
             }
         }
     }
