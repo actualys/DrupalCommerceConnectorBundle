@@ -1,0 +1,14 @@
+services:
+    actualys_drupal_commerce_connector.reader.doctrine.published_obsoleteproduct:
+        class: %pim_base_connector.reader.doctrine.obsoleteproduct.class%
+        arguments:
+            - '@pimee_workflow.repository.published_product'
+            - '@pim_catalog.manager.channel'
+            - '@pim_catalog.manager.completeness'
+            - '@pim_transform.converter.metric'
+
+    actualys_drupal_commerce_connector.reader.doctrine.published_product_delta:
+         class: %actualys_drupal_commerce_connector.reader.doctrine.delta_product.class%
+         parent: actualys_drupal_commerce_connector.reader.doctrine.published_obsoleteproduct
+         arguments:
+            - @actualys_drupal_commerce_connector.manager.product_export

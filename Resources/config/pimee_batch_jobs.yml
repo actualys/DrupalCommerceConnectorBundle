@@ -1,0 +1,27 @@
+connector:
+    name: Drupal Commerce Connector
+    jobs:
+        drupal_commerce_published_product_full_export:
+            title: actualys_drupal_commerce_connector.jobs.published_product_full_export.title
+            type:  export
+            steps:
+                export_products:
+                     title:     actualys_drupal_commerce_connector.steps.product_export.export.title
+                     services:
+                         reader:    pimee_base_connector.reader.doctrine.published_product
+                         processor: actualys_drupal_commerce_connector.processor.product
+                         writer:    actualys_drupal_commerce_connector.writer.product
+                     parameters:
+                         batch_size: 1
+        drupal_commerce_published_product_delta_export:
+            title: actualys_drupal_commerce_connector.jobs.published_product_delta_export.title
+            type:  export
+            steps:
+                export:
+                    title:     actualys_drupal_commerce_connector.steps.product_delta_export.export.title
+                    services:
+                        reader:    actualys_drupal_commerce_connector.reader.doctrine.published_product_delta
+                        processor: actualys_drupal_commerce_connector.processor.product
+                        writer:    actualys_drupal_commerce_connector.writer.product_delta
+                    parameters:
+                        batch_size: 1

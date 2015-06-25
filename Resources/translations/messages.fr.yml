@@ -1,16 +1,15 @@
 actualys_drupal_commerce_connector:
     jobs:
-        product_export.title: "Export des produits vers Drupal Commerce"
         product_delta_export.title: "Export delta des produits vers Drupal Commerce"
+        published_product_delta_export.title: "Export delta des produits publiés vers Drupal Commerce"
         association_export.title: "Export des product_associations vers Drupal Commerce"
-        product_full_export.title: "Export complet des produits produits vers Drupal Commerce"
+        product_full_export.title: "Export complet des produits vers Drupal Commerce"
+        published_product_full_export.title: "Export complet des produits publiés vers Drupal Commerce"
         category_export.title: "Export catégories vers Drupal Commerce"
         attribute_option_export.title: "Export des options d'attribut vers Drupal Commerce"
         attribute_export.title: "Export d'attributs vers Drupal Commerce"
-        option_export.title: "Export des options d'attributs vers Drupal Commerce"
         group_export.title: "Export de groupes vers Drupal Commerce"
         family_export.title: "Export de familles vers Drupal Commerce"
-        option_attribute.title: "Export des options d'attribut vers Drupal Commerce"
     steps:
         product_full_export.export.title: Export complets de produits
         product_delta_export.export.title: Export delta de produits
