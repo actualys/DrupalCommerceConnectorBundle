@@ -51,5 +51,12 @@ class ActualysDrupalCommerceConnectorExtension extends Extension
               $taggedServiceHolder
             );
         }
+
+        if (in_array(
+            'PimEnterprise\Bundle\CatalogBundle\PimEnterpriseCatalogBundle',
+            $container->getParameter('kernel.bundles'))
+        ) {
+            $loader->load('pimee_readers.yml');
+        }
     }
 }

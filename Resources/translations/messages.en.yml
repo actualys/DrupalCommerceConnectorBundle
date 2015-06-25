@@ -1,19 +1,18 @@
 actualys_drupal_commerce_connector:
     jobs:
-        product_export.title: "Export products to Drupal Commerce"
-        product_delta_export.title: "Delta export products to Drupal Commerce"
-        association_export.title: "Export product_associations to Drupal Commerce"
-        product_full_export.title: "Export to complete Drupal Commerce"
-        category_export.title: "Export categories to Drupal Commerce"
-        attribute_option_export.title: "Export attribute options to Drupal Commerce"
-        attribute_export.title: "Export attributes to Drupal Commerce"
-        option_export.title: "Export attribute options to Drupal Commerce"
-        group_export.title: "Export groups to Drupal Commerce"
-        family_export.title: "Export families to Drupal Commerce"
-        option_attribute.title: "Export attribute options to Drupal Commerce"
+        product_delta_export.title: "Delta Products export to Drupal Commerce"
+        published_product_delta_export.title: "Delta Published Products export to Drupal Commerce"
+        association_export.title: "Product Associations export to Drupal Commerce"
+        product_full_export.title: "Full Product export to Drupal Commerce"
+        published_product_full_export.title: "Full Published Product export to Drupal Commerce"
+        category_export.title: "Category export to Drupal Commerce"
+        attribute_option_export.title: "Attribute option export to Drupal Commerce"
+        attribute_export.title: "Attribute export to Drupal Commerce"
+        group_export.title: "Group export to Drupal Commerce"
+        family_export.title: "Family export to Drupal Commerce"
     steps:
         product_full_export.export.title: Complete product export
-        product_delta_export.export.title: Export products delta
+        product_delta_export.export.title: Delta products export
         product_export.export.title: Single product export
         group_export.export.title: Export groups
         attribute_export.export.title: Export Attributes
