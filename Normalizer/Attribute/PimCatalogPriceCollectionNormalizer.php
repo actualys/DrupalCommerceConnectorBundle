@@ -45,15 +45,15 @@ class PimCatalogPriceCollectionNormalizer implements NormalizerInterface
           'available_locales' => $availableLocales,
         ];
 
-        if ($attribute->isLocalizable()) {
-            foreach ($attribute->getTranslations() as $trans) {
-                $normalizedAttribute['labels'][$trans->getLocale(
-                )] = $trans->getLabel();
-            }
-        } else {
-            $normalizedAttribute['labels'][LANGUAGE_NONE] = $attribute->getLabel(
-            );
+      $translations = $attribute->getTranslations();
+      if (!empty($translations)  && count($attribute->getTranslations()) > 0) {
+        foreach ($attribute->getTranslations() as $trans) {
+          $normalizedAttribute['labels'][$trans->getLocale(
+          )] = $trans->getLabel();
         }
+        $normalizedAttribute['labels'][LANGUAGE_NONE] = $attribute->getLabel( );
+
+      }
 
         return $normalizedAttribute;
     }
