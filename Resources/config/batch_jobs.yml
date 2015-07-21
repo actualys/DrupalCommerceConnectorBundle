@@ -115,7 +115,7 @@ connector:
                         processor: actualys_drupal_commerce_connector.processor.product
                         writer:    actualys_drupal_commerce_connector.writer.product_delta
                     parameters:
-                        batch_size: 1
+                        batch_size: 50
 #                export_groups:
 #                     title:     actualys_drupal_commerce_connector.steps.group_export.export.title
 #                     services:
