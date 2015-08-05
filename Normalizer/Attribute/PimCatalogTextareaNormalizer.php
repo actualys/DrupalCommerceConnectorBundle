@@ -44,6 +44,7 @@ class PimCatalogTextareaNormalizer implements NormalizerInterface
           'localizable'       => $attribute->isLocalizable(),
           'unique'            => $attribute->isUnique(),
           'available_locales' => $availableLocales,
+          'default_value'     => null,
           'max_characters'    => $attribute->getMaxCharacters(),
           'wysiwyg' => $attribute->isWysiwygEnabled()
 
