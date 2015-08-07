@@ -43,8 +43,8 @@ class PimCatalogImageNormalizer extends AbstractMediaNormalizer
               'filename_original' => $media->getOriginalFilename(),
               'filename'          => $media->getFilename(),
               'mimetype'          => $media->getMimeType(),
-              'length'            => filesize($media->getFilePath()),
-              'absolute_path'     => $media->getFilePath(),
+              'length'            => filesize($this->mediaManager->getFilePath($media)),
+              'absolute_path'     => $this->mediaManager->getFilePath($media),
               'attribute_id'      => $media->getValue()->getAttribute()->getId(
               ),
               'media_id'          => $media->getId(),

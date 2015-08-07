@@ -43,7 +43,7 @@ class PimCatalogMetricNormalizer implements NormalizerInterface
           'scope'               => $attribute->isScopable(),
           'localizable'         => $attribute->isLocalizable(),
           'available_locales'   => $availableLocales,
-          'default_value'       => $attribute->getDefaultValue(),
+          'default_value'       => null,
           'negative_allowed'    => (bool) $attribute->isNegativeAllowed(),
           'decimale_allowed'    => (bool) $attribute->isDecimalsAllowed(),
           'number_min'          => (bool) $attribute->getNumberMin(),

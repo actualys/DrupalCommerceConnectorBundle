@@ -46,7 +46,7 @@ class PimCatalogDateNormalizer implements NormalizerInterface
           'unique'            => $attribute->isUnique(),
           'locale_specific'   => '',
           'available_locales' => $availableLocales,
-          'default_value'     => $attribute->getDefaultValue(),
+          'default_value'     => null,
           'date_min'          => $attribute->getDateMin(),
           'date_max'          => $attribute->getDateMax(),
         ];
