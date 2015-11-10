@@ -43,8 +43,12 @@ class PublishedProductWriter extends AbstractConfigurableStepElement implements 
     public function write(array $items)
     {
         foreach ($items as $item) {
-            $this->stepExecution->incrementSummaryInfo('write');
-            $this->stepExecution->incrementWriteCount();
+          if (is_array($item)) {
+            foreach ($item as $itm) {
+              $this->stepExecution->incrementSummaryInfo('write');
+              $this->stepExecution->incrementWriteCount();
+            }
+            }
         }
     }
 
