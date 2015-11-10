@@ -66,15 +66,11 @@ class PublishedProductProcessor extends AbstractConfigurableStepElement implemen
         foreach ($originalProducts as $originalProduct) {
           $originalProduct->__load();
 
-          if ($originalProduct->getId() == 4881) {
-            echo 'test';
-          }
-
           try {
             $this->publishedProductManager->publish($originalProduct, ['with_associations' => false]);
             $ids[] = $originalProduct;
 
-            file_put_contents('succes_publish', $originalProduct->getId(), FILE_APPEND);
+            file_put_contents('succes_publish', $originalProduct->getId() . "\n", FILE_APPEND);
 
           }
           catch (\Exception $e) {
@@ -83,7 +79,7 @@ class PublishedProductProcessor extends AbstractConfigurableStepElement implemen
             var_dump($e);
             $var = ob_get_clean();
 
-              file_put_contents('erreur_publish', $originalProduct->getId() . " " .$var, FILE_APPEND);
+              file_put_contents('erreur_publish', $originalProduct->getId() . " " .$var . "\n", FILE_APPEND);
           }
         }
         return $ids;
