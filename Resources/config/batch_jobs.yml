@@ -132,3 +132,17 @@ connector:
 #                        writer:    actualys_drupal_commerce_connector.writer.association
 #                    parameters:
 #                        batch_size: 1
+
+
+        drupal_commerce_product_published_publisher:
+            title: actualys_drupal_commerce_connector.jobs.published_product_publisher.title
+            type:  export
+            steps:
+                export:
+                    title:     actualys_drupal_commerce_connector.steps.published_product_publisher.export.title
+                    services:
+                        reader:    actualys_drupal_commerce_connector.reader.published_product
+                        processor: actualys_drupal_commerce_connector.processor.published_product
+                        writer:    actualys_drupal_commerce_connector.writer.published_product
+                    parameters:
+                        batch_size: 10

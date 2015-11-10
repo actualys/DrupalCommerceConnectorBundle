@@ -7,8 +7,14 @@ parameters:
     actualys_drupal_commerce_connector.writer.group.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Writer\GroupWriter
     actualys_drupal_commerce_connector.writer.product_delta.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Writer\DeltaProductWriter
     actualys_drupal_commerce_connector.writer.association.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Writer\AssociationWriter
+    actualys_drupal_commerce_connector.writer.published_product.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Writer\PublishedProductWriter
 
 services:
+    actualys_drupal_commerce_connector.writer.published_product:
+        class: %actualys_drupal_commerce_connector.writer.published_product.class%
+        arguments:
+            - @event_dispatcher
+
     actualys_drupal_commerce_connector.writer.product:
         class: %actualys_drupal_commerce_connector.writer.product.class%
         arguments:

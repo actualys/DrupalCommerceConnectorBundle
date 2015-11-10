@@ -6,8 +6,16 @@ parameters:
     actualys_drupal_commerce_connector.processor.category.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Processor\CategoryProcessor
     actualys_drupal_commerce_connector.processor.group.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Processor\GroupProcessor
     actualys_drupal_commerce_connector.processor.association.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Processor\AssociationProcessor
+    actualys_drupal_commerce_connector.processor.published_product.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Processor\PublishedProductProcessor
 
 services:
+    actualys_drupal_commerce_connector.processor.published_product:
+        class: %actualys_drupal_commerce_connector.processor.published_product.class%
+        arguments:
+            - '@pimee_workflow.manager.published_product'
+            - '@doctrine.orm.default_entity_manager'
+
+
     actualys_drupal_commerce_connector.processor.product:
         class: %actualys_drupal_commerce_connector.processor.product.class%
         arguments:

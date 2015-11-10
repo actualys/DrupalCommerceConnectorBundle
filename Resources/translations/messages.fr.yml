@@ -11,6 +11,8 @@ actualys_drupal_commerce_connector:
         group_export.title: "Export de groupes vers Drupal Commerce"
         family_export.title: "Export de familles vers Drupal Commerce"
         option_attribute.title: "Export des options d'attribut vers Drupal Commerce"
+        published_product_publisher.title: "Publication des produits complets"
+
     steps:
         product_full_export.export.title: Export complets de produits
         product_delta_export.export.title: Export delta de produits
@@ -20,6 +22,8 @@ actualys_drupal_commerce_connector:
         option_export.export.title: Export des options d'attributs
         family_export.export.title: Export des familles de produits
         category_export.export.title: Export des categories de produits
+        published_product_publisher.export.title: Export complets de produits
+
     export:
         baseUrl:
             label: "Url Drupal"

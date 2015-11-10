@@ -3,12 +3,23 @@ parameters:
     actualys_drupal_commerce_connector.reader.category.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Reader\ORM\CategoryReader
     actualys_drupal_commerce_connector.reader.attribute_option.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Reader\ORM\AttributeOptionReader
     actualys_drupal_commerce_connector.reader.doctrine.delta_product.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Reader\ORM\DeltaProductReader
-
+    actualys_drupal_commerce_connector.reader.doctrine.full_completeness_product.class: Actualys\Bundle\DrupalCommerceConnectorBundle\Reader\ORM\PublishedProductReader
 services:
     # readers
 
+    actualys_drupal_commerce_connector.reader.published_product:
+        class: %actualys_drupal_commerce_connector.reader.doctrine.full_completeness_product.class%
+        arguments:
+            - '@pim_catalog.repository.product'
+            - '@pim_catalog.manager.channel'
+            - '@pim_catalog.manager.completeness'
+            - '@pim_transform.converter.metric'
+            - '@pim_catalog.object_manager.product'
+            - '@doctrine.orm.default_entity_manager'
+            - '@pimee_workflow.manager.published_product'
+
+
     actualys_drupal_commerce_connector.reader.product:
-       # class: %actualys_drupal_commerce_product_connector.reader.orm.bulk_entity.class%
         class: %pim_base_connector.reader.doctrine.product.class%
         arguments:
             - '@pim_catalog.repository.product'
