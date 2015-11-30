@@ -36,6 +36,8 @@ class ActualysDrupalCommerceConnectorExtension extends Extension
         $loader->load('processors.yml');
         $loader->load('writers.yml');
         $loader->load('managers.yml');
+        $loader->load('cleaners.yml');
+
      //   $loader->load('validation.yml');
 
         if (!$container->hasDefinition(

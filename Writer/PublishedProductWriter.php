@@ -11,21 +11,29 @@ use Akeneo\Bundle\BatchBundle\Event\EventInterface;
 use Akeneo\Bundle\BatchBundle\Item\AbstractConfigurableStepElement;
 use Akeneo\Bundle\BatchBundle\Step\StepExecutionAwareInterface;
 use Akeneo\Bundle\BatchBundle\Entity\StepExecution;
-
 use Akeneo\Bundle\BatchBundle\Job\ExitStatus;
+use Actualys\Bundle\DrupalCommerceConnectorBundle\Cleaner\PublishedProductMediaCleaner;
+
+
 /**
  * Class ProductWriter
  *
  * @package Actualys\Bundle\DrupalCommerceConnectorBundle\Writer
  */
-class PublishedProductWriter extends AbstractConfigurableStepElement implements ItemWriterInterface, StepExecutionAwareInterface
+class PublishedProductWriter extends DrupalItemStep implements ItemWriterInterface, StepExecutionAwareInterface
 {
+
+
+
+  /** @var  PublishedProductMediaCleaner $publishedProductMediaCleaner */
+  protected $publishedProductMediaCleaner;
 
     protected $stepExecution;
 
-    public function __construct(EventDispatcher $eventDispatcher)
+    public function __construct(EventDispatcher $eventDispatcher, PublishedProductMediaCleaner $publishedProductMediaCleaner)
     {
-        $this->eventDispatcher = $eventDispatcher;
+      $this->eventDispatcher = $eventDispatcher;
+      $this->publishedProductMediaCleaner    = $publishedProductMediaCleaner;
     }
 
     /**
@@ -48,8 +56,15 @@ class PublishedProductWriter extends AbstractConfigurableStepElement implements 
               $this->stepExecution->incrementSummaryInfo('write');
               $this->stepExecution->incrementWriteCount();
             }
-            }
+          }
         }
+
+      $rc = $this->stepExecution->getReadCount();
+      $wc= $this->stepExecution->getWriteCount();
+
+      if ($rc > 0 && $rc == $wc) {
+        $this->publishedProductMediaCleaner->clean();
+      }
     }
 
     /**
@@ -59,6 +74,4 @@ class PublishedProductWriter extends AbstractConfigurableStepElement implements 
     {
       $this->stepExecution = $stepExecution;
     }
-
-
 }

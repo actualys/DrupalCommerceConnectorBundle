@@ -9,16 +9,17 @@ use Pim\Bundle\CatalogBundle\Model\ProductInterface;
 use Akeneo\Bundle\BatchBundle\Item\AbstractConfigurableStepElement;
 use PimEnterprise\Bundle\WorkflowBundle\Manager\PublishedProductManager;
 use Doctrine\ORM\EntityManager;
-
+use Actualys\Bundle\DrupalCommerceConnectorBundle\Cleaner\PublishedProductMediaCleaner;
 
 class PublishedProductProcessor extends AbstractConfigurableStepElement implements ItemProcessorInterface
 {
 
-    /** @var  PublishedProductManager $productMassActionRepository */
+  /** @var  PublishedProductManager $productMassActionRepository */
     protected $publishedProductManager;
 
     /** @var   EntityManager $entityManager **/
     protected $entityManager;
+
     /**
      * @param ProductManager    $productManager
      */
@@ -94,4 +95,9 @@ class PublishedProductProcessor extends AbstractConfigurableStepElement implemen
     public function getConfigurationFields() {
         return array();
     }
+
+    public function executeFinalOperation() {
+    //  $this->publishedProductMediaCleaner->clean();
+    }
+
 }

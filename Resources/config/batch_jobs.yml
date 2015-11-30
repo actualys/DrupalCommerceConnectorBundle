@@ -145,4 +145,4 @@ connector:
                         processor: actualys_drupal_commerce_connector.processor.published_product
                         writer:    actualys_drupal_commerce_connector.writer.published_product
                     parameters:
-                        batch_size: 10
+                        batch_size: 2

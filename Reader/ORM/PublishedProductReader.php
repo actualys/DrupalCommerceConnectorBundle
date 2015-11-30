@@ -89,6 +89,11 @@ class PublishedProductReader extends ORMProductReader {
 
     $ids = $qb->getQuery()->execute();
 
+    $stepExecution = $this->stepExecution;
+    array_walk($ids , function  ($item)  use($stepExecution){
+      $stepExecution->incrementReadCount();
+    });
+
     return $ids;
 
   }
