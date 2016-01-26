@@ -14,32 +14,34 @@ use Actualys\Bundle\DrupalCommerceConnectorBundle\Cleaner\PublishedProductMediaC
 class PublishedProductProcessor extends AbstractConfigurableStepElement implements ItemProcessorInterface
 {
 
-  /** @var  PublishedProductManager $productMassActionRepository */
+    /** @var  PublishedProductManager $productMassActionRepository */
     protected $publishedProductManager;
 
-    /** @var   EntityManager $entityManager **/
+    /** @var   EntityManager $entityManager * */
     protected $entityManager;
 
     /**
-     * @param ProductManager    $productManager
+     * @param ProductManager $productManager
      */
     public function __construct(
       PublishedProductManager $publishedProductManager,
       EntityManager $entityManager
     ) {
-        $this->publishedProductManager    = $publishedProductManager;
-        $this->entityManager    = $entityManager;
+        $this->publishedProductManager = $publishedProductManager;
+        $this->entityManager = $entityManager;
     }
 
     /**
-     * @param  mixed  $products
+     * @param  mixed $products
      * @return mixed
      * @throws InvalidItemException
      */
     public function process($publishedProductIds)
     {
-      $this->entityManager->clear();
-          $publishedProducts = $this->entityManager->getRepository('PimEnterprise\Bundle\WorkflowBundle\Model\PublishedProduct')->findByIds($publishedProductIds);
+        $this->entityManager->clear();
+        $publishedProducts = $this->entityManager->getRepository(
+          'PimEnterprise\Bundle\WorkflowBundle\Model\PublishedProduct'
+        )->findByIds($publishedProductIds);
 
         return $this->publishProducts($publishedProducts);
 
@@ -57,32 +59,32 @@ class PublishedProductProcessor extends AbstractConfigurableStepElement implemen
     protected function publishProducts($publishedProducts)
     {
 
-       $originalProducts = array_map(
-         function ($item) {
-          return $item->getOriginalProduct();
-           },
-            $publishedProducts
-         );
+        $originalProducts = array_map(
+          function ($item) {
+              return $item->getOriginalProduct();
+          },
+          $publishedProducts
+        );
         $ids = array();
         foreach ($originalProducts as $originalProduct) {
-          $originalProduct->__load();
+            $originalProduct->__load();
 
-          try {
-            $this->publishedProductManager->publish($originalProduct, ['with_associations' => false]);
-            $ids[] = $originalProduct;
+            try {
+                $this->publishedProductManager->publish($originalProduct, ['with_associations' => true]);
+                $ids[] = $originalProduct;
 
-            file_put_contents('succes_publish', $originalProduct->getId() . "\n", FILE_APPEND);
+                file_put_contents('succes_publish', $originalProduct->getId()."\n", FILE_APPEND);
 
-          }
-          catch (\Exception $e) {
+            } catch (\Exception $e) {
 
-            ob_start();
-            var_dump($e);
-            $var = ob_get_clean();
+                ob_start();
+                var_dump($e);
+                $var = ob_get_clean();
 
-              file_put_contents('erreur_publish', $originalProduct->getId() . " " .$var . "\n", FILE_APPEND);
-          }
+                file_put_contents('erreur_publish', $originalProduct->getId()." ".$var."\n", FILE_APPEND);
+            }
         }
+
         return $ids;
     }
 
@@ -92,12 +94,14 @@ class PublishedProductProcessor extends AbstractConfigurableStepElement implemen
      *
      * @return array
      */
-    public function getConfigurationFields() {
+    public function getConfigurationFields()
+    {
         return array();
     }
 
-    public function executeFinalOperation() {
-    //  $this->publishedProductMediaCleaner->clean();
+    public function executeFinalOperation()
+    {
+        //  $this->publishedProductMediaCleaner->clean();
     }
 
 }

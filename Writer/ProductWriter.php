@@ -40,8 +40,7 @@ class ProductWriter extends DrupalItemStep implements ItemWriterInterface
     {
         foreach ($items as $item) {
             try {
-          //file_put_contents('product.json', json_encode($item));
-              $this->webservice->sendProduct($item);
+                $this->webservice->sendProduct($item);
             } catch (\Exception $e) {
                 $event = new InvalidItemEvent(
                   __CLASS__,
@@ -54,7 +53,6 @@ class ProductWriter extends DrupalItemStep implements ItemWriterInterface
                   EventInterface::INVALID_ITEM,
                   $event
                 );
-
 
                 // Loggin Interface
                 $this->stepExecution->addWarning(
@@ -78,6 +76,4 @@ class ProductWriter extends DrupalItemStep implements ItemWriterInterface
 
         }
     }
-
-
 }
