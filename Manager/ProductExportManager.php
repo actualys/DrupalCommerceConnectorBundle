@@ -159,19 +159,21 @@ class ProductExportManager
      */
     public function filterProduct(AbstractProduct $product, JobInstance $jobInstance)
     {
+        if ($product instanceof \PimEnterprise\Bundle\WorkflowBundle\Model\PublishedProduct ) {
+            /**@var \PimEnterprise\Bundle\WorkflowBundle\Model\PublishedProduct  $product **/
+            $productExport = $this->productExportRepository->findProductExportAfterEdit(
+              $product->getOriginalProduct(),
+              $jobInstance,
+              $product->getUpdated()
+            );
 
-        $productExport = $this->productExportRepository->findProductExportAfterEdit(
-          $product->getOriginalProduct(),
-          $jobInstance,
-          $product->getUpdated()
-        );
-
-        if (0 === count($productExport)) {
-            if ($this->productValueDelta) {
-                $product = $this->filterProductValues($product);
+            if (0 === count($productExport)) {
+                if ($this->productValueDelta) {
+                    $product = $this->filterProductValues($product);
+                }
+            } else {
+                $product = null;
             }
-        } else {
-            $product = null;
         }
 
         return $product;
