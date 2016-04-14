@@ -72,16 +72,8 @@ class PublishedProductProcessor extends AbstractConfigurableStepElement implemen
             try {
                 $this->publishedProductManager->publish($originalProduct, ['with_associations' => true]);
                 $ids[] = $originalProduct;
-
-                file_put_contents('succes_publish', $originalProduct->getId()."\n", FILE_APPEND);
-
             } catch (\Exception $e) {
-
-                ob_start();
-                var_dump($e);
-                $var = ob_get_clean();
-
-                file_put_contents('erreur_publish', $originalProduct->getId()." ".$var."\n", FILE_APPEND);
+                //throw $e;
             }
         }
 
